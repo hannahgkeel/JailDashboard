@@ -1,0 +1,39 @@
+{
+  "name": "jaildashboard",
+  "version": "0.0.1",
+  "description": "COMP 523 Project",
+  "main": "server.js",
+  "repository": "https://github.com/hannahgkeel/JailDashboard.git",
+  "author": "Paul Jones <wpnpaul@live.unc.edu>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.8",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.1",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^5.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
+  },
+  "scripts": {
+    "fmt": "prettier --write .",
+    "build": "webpack --config webpack.config.js --mode production",
+    "dev": "webpack serve --config webpack.config.js --mode development --open"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  }
+}
