@@ -1,15 +1,46 @@
 import React from "react";
+import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+//   BrowserRouter as Router,
+//   Switch,
+//   Route
+// } from "react-router-dom";
+import Home from './pages/Home';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { Domain } from "@material-ui/icons";
+import { createBrowserHistory } from 'history';
 
-import Footer from './components/Footer.js';
-import Header from './components/Header.js';
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      ' Open Sans',
+      'sans-serif'
+    ].join(','),
+    button: {
+      textTransform: "none"
+    }
+  }
+});
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <Header />
-      <h1>Justice System Software!</h1>
-      <h2>Welcome to the JailDashboard</h2>
-      <Footer />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router history={createBrowserHistory}>
+    <div className="app">
+          <div className="pure-g main">
+            <Switch>
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </div>
+        </div>
+        </Router>
+    </ThemeProvider>
   );
 }
+
+export default App;
