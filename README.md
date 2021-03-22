@@ -4,6 +4,7 @@ COMP 523 Final Project
 ### Building
 
 ```bash
+yarn install
 yarn build
 yarn run # go to localhost:5000
 ```
