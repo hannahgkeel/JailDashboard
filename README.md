@@ -6,7 +6,7 @@ COMP 523 Final Project
 ```bash
 yarn install
 yarn build
-yarn run # go to localhost:5000
+yarn start # go to localhost:5000
 ```
 
 ### Hot Reload (front-end only)
