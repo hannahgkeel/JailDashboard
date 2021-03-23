@@ -5,11 +5,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-//   BrowserRouter as Router,
-//   Switch,
-//   Route
-// } from "react-router-dom";
 import Home from './pages/Home';
+import About from './pages/About';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { Domain } from "@material-ui/icons";
@@ -34,6 +31,7 @@ function App() {
     <div className="app">
           <div className="pure-g main">
             <Switch>
+              <Route path="/about" component={About} />
               <Route exact path="/" component={Home} />
             </Switch>
           </div>

@@ -42,7 +42,7 @@ export default function Header() {
                         <Button color="inherit">Home</Button>
                     </Typography>
                     <Typography>
-                        <Button color="inherit">About</Button>
+                        <Button href="/about" color="inherit">About</Button>
                     </Typography>
                 </Toolbar>
             </AppBar>
