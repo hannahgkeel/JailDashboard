@@ -30,8 +30,11 @@ export default function Header() {
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
                     <Typography className={classes.title} variant="h5" noWrap>
-                        North Carolina Jail Dashboard
+                        North Carolina Jail Dashboards
                     </Typography>
+                    {/* <Typography variant="subtitle1">
+                        Key metrics on local jail populations
+                    </Typography> */}
                     <Typography>
                         <Button color="inherit">Home</Button>
                     </Typography>
