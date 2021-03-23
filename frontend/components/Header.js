@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       },
       title: {
         flexGrow: 1,
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
       },
   }));
 
@@ -29,11 +29,14 @@ export default function Header() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
-                    <Typography className={classes.title} variant="h5" noWrap>
+                    <Typography className={classes.title} variant="h4" align="center" noWrap>
                         North Carolina Jail Dashboards
                     </Typography>
                     {/* <Typography variant="subtitle1">
                         Key metrics on local jail populations
+                    </Typography> */}
+                    {/* <Typography align="left">
+                        Criminal Justice Innovation Lab
                     </Typography> */}
                     <Typography>
                         <Button color="inherit">Home</Button>
