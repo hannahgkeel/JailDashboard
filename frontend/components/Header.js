@@ -39,7 +39,7 @@ export default function Header() {
                         Criminal Justice Innovation Lab
                     </Typography> */}
                     <Typography>
-                        <Button color="inherit">Home</Button>
+                        <Button href="/" color="inherit">Home</Button>
                     </Typography>
                     <Typography>
                         <Button href="/about" color="inherit">About</Button>
