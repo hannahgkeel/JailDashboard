@@ -29,7 +29,7 @@ export default function Header() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar className={classes.toolbar}>
-                    <Typography className={classes.title} variant="h4" align="center" noWrap>
+                    <Typography className={classes.title} variant="h4" align="center">
                         North Carolina Jail Dashboards
                     </Typography>
                     {/* <Typography variant="subtitle1">
