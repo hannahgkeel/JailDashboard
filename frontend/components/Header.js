@@ -11,14 +11,15 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
       toolbar: {
-        minHeight: 128,
+        minHeight: 37,
         alignItems: 'flex-start',
         paddingTop: theme.spacing(1),
         paddingBottom: theme.spacing(2),
       },
       title: {
         flexGrow: 1,
-        alignSelf: 'flex-end',
+        paddingTop: 8,
+        alignSelf: 'left',
       },
   }));
 
@@ -27,10 +28,10 @@ export default function Header() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar position="static" color="white">
                 <Toolbar className={classes.toolbar}>
-                    <Typography className={classes.title} variant="h4">
-                        North Carolina Jail Dashboards
+                     <Typography className={classes.title} variant="subtitle2">
+                        Criminal Justice Innovation Lab
                     </Typography>
                     {/* <Typography variant="subtitle1">
                         Key metrics on local jail populations
