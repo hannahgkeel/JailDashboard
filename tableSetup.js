@@ -9,7 +9,11 @@ const sequelize = new Sequelize({
   ssl: { rejectUnauthorized: false },
   dialectOptions: {
     ssl: true,
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   }
 });
 
