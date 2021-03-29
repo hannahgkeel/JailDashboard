@@ -7,7 +7,12 @@ const sequelize = new Sequelize({
   port: process.env.APP_PORT,
   dialect: "postgres",
   ssl: true,
+  dialectOptions: {
+    ssl: true
+  }
 });
+
+sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
 
 const County = sequelize.define("County", {
   race: {
