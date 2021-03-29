@@ -1,12 +1,12 @@
 .Footer-container {
-    text-align: left;
-    color: rgb(165, 165, 165);
-    background-color: rgb(238, 238, 238);
-    height: 100px;
-    max-width: none !important;
-    
-    /* Keeping it at the bottom */
-    left: 0;
-    bottom: 0;
-    position: fixed;
+  text-align: left;
+  color: rgb(165, 165, 165);
+  background-color: rgb(238, 238, 238);
+  height: 100px;
+  max-width: none !important;
+
+  /* Keeping it at the bottom */
+  left: 0;
+  bottom: 0;
+  position: fixed;
 }
