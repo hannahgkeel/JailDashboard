@@ -1,5 +1,8 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
-const sequelize = new Sequelize(process.env.API_KEY);
+const sequelize = new Sequelize({
+  uri: process.env.API_KEY,
+  dialect: "postgres"
+});
 
 const County = sequelize.define("County", {
   race: {
