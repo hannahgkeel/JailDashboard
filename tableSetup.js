@@ -6,7 +6,7 @@ const sequelize = new Sequelize({
   host: process.env.APP_HOST,
   port: process.env.APP_PORT,
   dialect: "postgres",
-  ssl: true,
+  ssl: { rejectUnauthorized: false },
   dialectOptions: {
     ssl: true,
     rejectUnauthorized: false
