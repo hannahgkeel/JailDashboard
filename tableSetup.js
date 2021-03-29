@@ -67,8 +67,7 @@ const County = sequelize.define("County", {
     allowNull: false,
   },
 });
-try {
-  County.sync().then(() => console.log("Success"));
-} catch(e) {
-  console.log(`${e}`);
-}
+
+County.sync()
+  .then(() => console.log("Success"))
+  .catch((e) => console.log(`${e}`));
