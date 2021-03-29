@@ -5,7 +5,8 @@ const sequelize = new Sequelize({
   password: process.env.APP_PW,
   host: process.env.APP_HOST,
   port: process.env.APP_PORT,
-  dialect: "postgres"
+  dialect: "postgres",
+  ssl: true,
 });
 
 const County = sequelize.define("County", {
