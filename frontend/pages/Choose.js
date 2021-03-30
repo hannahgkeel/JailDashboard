@@ -5,9 +5,18 @@ import "../App.css";
 import "../styles/Home.css";
 import "../styles/Search.css";
 import { Typography, Button } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 
-class Choose extends React.Component {
-    render() {
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin:theme.spacing(1),
+    },
+}));
+
+
+export default function Choose() {
+    const classes = useStyles();
         return (
             <div className="home pure-u-1">
                 <Header />
@@ -17,10 +26,10 @@ class Choose extends React.Component {
                         </h2>
                 </div>
                 <div className='search-div pure-u-11-12 pure-u-md-1-2 pure-g'>
-                <Button variant="contained" size="large" color="primary">
+                <Button variant="contained" size="large" color="primary" className={classes.margin}>
                 All Detainees
                 </Button>
-                <Button variant="contained" size="large" color="primary">
+                <Button variant="contained" size="large" color="primary" className={classes.margin}>
                 Pretrial Detainees
                 </Button>
                 </div>
@@ -28,5 +37,3 @@ class Choose extends React.Component {
             </div>
         )
     }
-}
-export default Choose;
