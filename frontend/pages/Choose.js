@@ -23,9 +23,11 @@ export default function Choose() {
                 <div className="home-header pure-g">
                     <h2 className='title pure-u-1'>
                         <Typography variant="h4" font-weight="bold" text-align="center">Orange County</Typography>
+                        <Typography variant="subtitle2">Jail Dashboard</Typography>
                         </h2>
                 </div>
                 <div className='search-div pure-u-11-12 pure-u-md-1-2 pure-g'>
+                <Typography variant="h6">Select:</Typography>
                 <Button variant="contained" size="large" color="primary" className={classes.margin}>
                 All Detainees
                 </Button>
