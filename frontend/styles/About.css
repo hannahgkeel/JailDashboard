@@ -1,0 +1,17 @@
+.content {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    font-size: 1em;
+}
+
+.about-text {
+    padding-left: 1.875rem;
+    padding-right: 1.875rem;
+    font-size: 0.938rem;
+    line-height: 1.875rem;
+    padding-bottom: 6rem;
+  }
+
