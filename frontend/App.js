@@ -33,7 +33,7 @@ function App() {
           <div className="pure-g main">
             <Switch>
               <Route path="/about" component={About} />
-              <Route path="/choose" component={Choose} />
+              <Route path="/choose" component={Choose}/>
               <Route exact path="/" component={Home} />
             </Switch>
           </div>
