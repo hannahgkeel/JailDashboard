@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import '../styles/Search.css';
-import { Typography } from "@material-ui/core";
+import { Typography, Button } from "@material-ui/core";
 
 export default function Search() {
 
@@ -39,7 +39,7 @@ export default function Search() {
                             />
                         )}
                     />
-                    <button>Search</button>
+                    <Button variant="contained" color="primary" size="small">Search</Button>
                 </form>
             </div>
         </div>
