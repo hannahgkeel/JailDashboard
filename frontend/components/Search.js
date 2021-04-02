@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
+import '../styles/Search.css';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import '../styles/Search.css';
 import { Typography, Button } from "@material-ui/core";
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function Search() {
+    let history = useHistory()
 
     // Initialize state
     const [state, setState] = useState({
@@ -30,6 +32,10 @@ export default function Search() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        history.push({
+            pathname: '/county',
+            state: state,
+        })
         console.log("Submit button pressed.");
     }
 
@@ -66,7 +72,7 @@ export default function Search() {
                         />
                     </FormGroup>
 
-                    <Button variant="contained" color="primary" size="small">Search</Button>
+                    <Button type="submit" variant="contained" color="primary" size="small">Search</Button>
                 </form>
             </div>
         </div>

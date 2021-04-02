@@ -8,6 +8,7 @@ import {
 import Home from './pages/Home';
 import About from './pages/About';
 import Choose from './pages/Choose';
+import County from './pages/County';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { Domain } from "@material-ui/icons";
@@ -28,12 +29,13 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router history={createBrowserHistory}>
+      <Router>
     <div className="app">
           <div className="pure-g main">
             <Switch>
               <Route path="/about" component={About} />
               <Route path="/choose" component={Choose}/>
+              <Route path="/county" render={(props) => <County {...props}/>}/>
               <Route exact path="/" component={Home} />
             </Switch>
           </div>
