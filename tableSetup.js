@@ -17,6 +17,18 @@ const sequelize = new Sequelize({
   }
 });
 
+const countyData = {
+  "0jdstatusPRET": "Pre-Trial",
+  /*
+   * So this means "0" + "jdstatus" + "PRET"
+   * "0" will be the index of the county in our County name table
+   * "jdstatus" is the column title
+   * "PRET" was the original value in the column
+   * "PRET" will now be mapped to "Pre-Trial"
+   * Repeat as necessary for each column where the value doesn't match other county tables
+  */
+}
+
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
 
 const County = sequelize.define("County", {
