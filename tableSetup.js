@@ -18,7 +18,9 @@ const sequelize = new Sequelize({
 });
 
 const countyData = {
-  "0jdstatusPRET": "Pre-Trial",
+
+  //STATUS
+  "0jdstatusPRET": "Pretrial",
   /*
    * So this means "0" + "jdstatus" + "PRET"
    * "0" will be the index of the county in our County name table
@@ -27,6 +29,53 @@ const countyData = {
    * "PRET" will now be mapped to "Pre-Trial"
    * Repeat as necessary for each column where the value doesn't match other county tables
   */
+  "0jdstatusBOP": "Bureau of prisons",
+  "0jdstatusDSMD": "Dismissed",
+  "0jdstatusFEDE": "Federal",
+  "0jdstatusINTX": "Intoxicated",
+  "0jdstatusNLA": "No longer active",
+  "0jdstatusSENT": "Sentenced",
+  "0jdstatusTSVD": "Time served",
+  "0jdstatusWKED": "Weekender",
+  "0jdstatusWRIT": "Writ",
+
+  //RACE
+  "0raceA": "Asian",
+  "0raceB": "Black",
+  "0raceH": "Hispanic",
+  "0raceO": "Other",
+  "0raceU": "Unknown",
+  "0raceW": "White",
+
+  //SEX
+  "0sexM": "Male",
+  "0sex": "Female",
+
+  //BOND TYPE
+  "0bondtypeCASH": "Cash",
+  "0bondtypeDOM": "Domestic",
+  "0bondtypeINCL": "Included",
+  "0bondtypeNOBD": "No bond",
+  "0bondtypeOTHR": "Other",
+  "0bondtypeRLSA": "Release to sober adult",
+  "0bondtypeRWSO": "Release when sober",
+  "0bondtypeSEC": "Secured",
+  "0bondtypeSERV": "Serving",
+  "0bondtypeWRPR": "Written promise",
+
+  //CHARGE
+  //ALL other values in the charge column should map to "Other" 
+  "0arr_chrgGS 15A-1345-F": "Probation violation",
+  "0arr_chrgGS 15A-1345": "Probation violation",
+
+  //FELONY/MISDEMEANOR
+  "0fel_misdF": "Felony",
+  "0fel_misdM": "Misdemeanor"
+
+  //Missing:
+  //name_id, book_id, docket_id (which should all be ints)
+  //dob, bookdate, releasetime (which should all be dates)
+
 }
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
