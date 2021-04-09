@@ -79,8 +79,12 @@ const countyData = new Map(Object.entries({
 }));
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
-
+sequelize.drop();
 const County = sequelize.define("County", {
+  county_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   race: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -138,27 +142,28 @@ const County = sequelize.define("County", {
 County.sync()
   .then(() => console.log("Success"))
   .catch((e) => console.log(`${e}`));
-/*
+
 const XLSX = require("xlsx");
 const data = XLSX.readFile("data.xlsx", { cellDates: true });
 const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
-
+/*
 //console.log(new Date(json_data[45].releastime.setHours(json_data[45].releastime.getHours() - 4)));
 for (let i = 0; i < json_data.length; i++) {
   let entry = json_data[i];
-  let arg_charg = (countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other");
-  let fel_misd = (countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other");
-  let race = countyData.get("0race" + entry.race.trim());
-  let sex = countyData.get("0sex" + entry.sex.trim())
-  let dob = entry.dob;
-  let name_id = entry.name_id;
-  let book_id = entry.book_id;
-  let bookdate = new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4));
-  let releasedate = new Date(entry.releastime.setHours(entry.releastime.getHours() - 4));
-  let docket_id = entry.docket_id;
-  let bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
-  let jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
-  let bondamount = entry.bondamt;
+  let e_arg_charg = (countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other");
+  let e_fel_misd = (countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other");
+  let e_race = countyData.get("0race" + entry.race.trim());
+  let e_sex = countyData.get("0sex" + entry.sex.trim())
+  let e_dob = entry.dob;
+  let e_name_id = entry.name_id;
+  let e_book_id = entry.book_id;
+  let e_bookdate = new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4));
+  let e_releasedate = new Date(entry.releastime.setHours(entry.releastime.getHours() - 4));
+  let e_docket_id = entry.docket_id;
+  let e_bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
+  let e_jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
+  let e_bondamount = entry.bondamt;
+  const row = await County.create({  });
 }
 */
 // json_data = XLSX.to_json(data)
