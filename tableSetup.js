@@ -79,7 +79,7 @@ const countyData = new Map(Object.entries({
 }));
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
-sequelize.drop();
+
 const County = sequelize.define("County", {
   county_id: {
     type: DataTypes.INTEGER,
@@ -139,14 +139,10 @@ const County = sequelize.define("County", {
   },
 });
 
-County.sync()
-  .then(() => console.log("Success"))
-  .catch((e) => console.log(`${e}`));
-
 const XLSX = require("xlsx");
 const data = XLSX.readFile("data.xlsx", { cellDates: true });
 const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
-/*
+
 //console.log(new Date(json_data[45].releastime.setHours(json_data[45].releastime.getHours() - 4)));
 for (let i = 0; i < json_data.length; i++) {
   let entry = json_data[i];
@@ -163,9 +159,13 @@ for (let i = 0; i < json_data.length; i++) {
   let e_bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
   let e_jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
   let e_bondamount = entry.bondamt;
-  const row = await County.create({  });
+  const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd });
 }
-*/
+
+County.sync()
+  .then(() => console.log("Success"))
+  .catch((e) => console.log(`${e}`));
+
 // json_data = XLSX.to_json(data)
 // for json_obj in json_data:
 //     tableLookup.get("0" + json_obj.keys().get(i))
