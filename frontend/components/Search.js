@@ -19,7 +19,7 @@ export default function Search() {
     });
 
     const handleChange = (event, value) => {
-        setState({...state, county: value});
+        setState({...state, county: value.name});
     }
 
     const handleCheckboxChange = (event) => {
@@ -44,22 +44,13 @@ export default function Search() {
             <Typography variant="h6">Search by county name</Typography>
             <div className="search-input pure-u-1 pure-u-md-2-3">
                 <form onSubmit={handleSubmit} style={{width: 300}}>
-                    <Autocomplete
-                        freeSolo
-                        id="free-solo-2-demo"
-                        disableClearable
-                        options={counties.map((option) => option.name)}
-                        onChange={handleChange}         // onChange triggered when user selects from dropdown
-                        onInputChange={handleChange}    // onInputChange triggered when user types
-                        renderInput={(params) => (
-                            <TextField
-                            {...params}
-                            label="County Name"
-                            margin="normal"
-                            variant="outlined"
-                            InputProps={{ ...params.InputProps, type: 'search' }}
-                            />
-                        )}
+                     <Autocomplete
+                        id="combo-box-demo"
+                        options={counties}
+                        getOptionLabel={(counties) => counties.name}
+                        style={{ width: 300 }}
+                        onChange = {handleChange}
+                        renderInput={(params) => <TextField {...params} label="Select" variant="outlined" />}
                     />
                     <FormGroup>
                         <FormControlLabel
@@ -71,7 +62,6 @@ export default function Search() {
                             label='Pretrial Detainees'
                         />
                     </FormGroup>
-
                     <Button type="submit" variant="contained" color="primary" size="small">Search</Button>
                 </form>
             </div>

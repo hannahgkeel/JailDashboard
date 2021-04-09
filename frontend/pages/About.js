@@ -9,7 +9,6 @@ class About extends React.Component {
     render() {
         return (
             <div className="home pure-u-1">
-                <Header />
                 <div className="home-header pure-g">
                     <h2 className='title pure-u-1'>
                         <Typography variant="h4" font-weight="bold" text-align="center">About Us</Typography>
@@ -52,8 +51,7 @@ class About extends React.Component {
                     <a href="https://cjil.sog.unc.edu/contact-us/">Click here</a> to connect with us on the web.
                     </p>
                     </Typography>
-                    </div>
-                <Footer />
+                </div>
             </div>
         );
     }
