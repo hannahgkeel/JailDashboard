@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import About from './pages/About';
-import Choose from './pages/Choose';
 import County from './pages/County';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -29,12 +28,11 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router history={createBrowserHistory}>
     <div className="app">
           <div className="pure-g main">
             <Switch>
               <Route path="/about" component={About} />
-              <Route path="/choose" component={Choose}/>
               <Route path="/county" render={(props) => <County {...props}/>}/>
               <Route exact path="/" component={Home} />
             </Switch>
