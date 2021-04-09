@@ -79,7 +79,4 @@ export default function Search() {
     );
 }
 
-const counties = [
-    {name: 'Orange County'},
-    {name: 'Foryth County'}
-];
+const counties = [{ name: "Orange County" }, { name: "Foryth County" }];

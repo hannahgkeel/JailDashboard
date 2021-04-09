@@ -1,5 +1,5 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
-/*
+
 const sequelize = new Sequelize({
   database: process.env.APP_DB,
   username: process.env.APP_USER,
@@ -17,7 +17,6 @@ const sequelize = new Sequelize({
     }
   }
 });
-*/
 const countyData = new Map(Object.entries({
 
   //STATUS

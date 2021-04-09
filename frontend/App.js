@@ -11,25 +11,22 @@ import County from './pages/County';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { Domain } from "@material-ui/icons";
-import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from "history";
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: [
-      ' Open Sans',
-      'sans-serif'
-    ].join(','),
+    fontFamily: [" Open Sans", "sans-serif"].join(","),
     button: {
-      textTransform: "none"
-    }
-  }
+      textTransform: "none",
+    },
+  },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router history={createBrowserHistory}>
-    <div className="app">
+        <div className="app">
           <div className="pure-g main">
             <Switch>
               <Route path="/about" component={About} />
@@ -38,7 +35,7 @@ function App() {
             </Switch>
           </div>
         </div>
-        </Router>
+      </Router>
     </ThemeProvider>
   );
 }
