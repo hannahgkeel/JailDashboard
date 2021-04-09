@@ -1,4 +1,5 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
+/*
 const sequelize = new Sequelize({
   database: process.env.APP_DB,
   username: process.env.APP_USER,
@@ -16,8 +17,8 @@ const sequelize = new Sequelize({
     }
   }
 });
-
-const countyData = {
+*/
+const countyData = new Map(Object.entries({
 
   //STATUS
   "0jdstatusPRET": "Pretrial",
@@ -49,7 +50,7 @@ const countyData = {
 
   //SEX
   "0sexM": "Male",
-  "0sex": "Female",
+  "0sexF": "Female",
 
   //BOND TYPE
   "0bondtypeCASH": "Cash",
@@ -70,13 +71,13 @@ const countyData = {
 
   //FELONY/MISDEMEANOR
   "0fel_misdF": "Felony",
-  "0fel_misdM": "Misdemeanor"
+  "0fel_misdM": "Misdemeanor",
 
   //Missing:
   //name_id, book_id, docket_id (which should all be ints)
   //dob, bookdate, releasetime (which should all be dates)
 
-}
+}));
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
 
@@ -117,10 +118,6 @@ const County = sequelize.define("County", {
     type: DataTypes.DATE,
     allowNull: false,
   },
-  release_reason: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   bond_type: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -129,15 +126,7 @@ const County = sequelize.define("County", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  agency: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   charge: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  charge_description: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -146,7 +135,37 @@ const County = sequelize.define("County", {
     allowNull: false,
   },
 });
-
+County.drop();
+/*
 County.sync()
   .then(() => console.log("Success"))
   .catch((e) => console.log(`${e}`));
+  */
+/*
+const XLSX = require("xlsx");
+const data = XLSX.readFile("data.xlsx", { cellDates: true });
+const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
+
+//console.log(new Date(json_data[45].releastime.setHours(json_data[45].releastime.getHours() - 4)));
+for (let i = 0; i < json_data.length; i++) {
+  let entry = json_data[i];
+  let arg_charg = (countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other");
+  let fel_misd = (countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other");
+  let race = countyData.get("0race" + entry.race.trim());
+  let sex = countyData.get("0sex" + entry.sex.trim())
+  let dob = entry.dob;
+  let name_id = entry.name_id;
+  let book_id = entry.book_id;
+  let bookdate = new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4));
+  let releasedate = new Date(entry.releastime.setHours(entry.releastime.getHours() - 4));
+  let docket_id = entry.docket_id;
+  let bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
+  let jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
+  let bondamount = entry.bondamt;
+}
+*/
+// json_data = XLSX.to_json(data)
+// for json_obj in json_data:
+//     tableLookup.get("0" + json_obj.keys().get(i))
+//     enter into SQL database
+// console.log(`${(countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other")}, ${(countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other")}, ${countyData.get("0race" + entry.race.trim())}, ${countyData.get("0sex" + entry.sex.trim())}, ${entry.dob}, ${entry.name_id}, ${entry.book_id}, ${new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4))}, ${new Date(entry.releastime.setHours(entry.releastime.getHours() - 4))}, ${entry.docket_id}, ${(countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other")}, ${(countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other")}`)
