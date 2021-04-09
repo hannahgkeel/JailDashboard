@@ -134,12 +134,10 @@ const County = sequelize.define("County", {
     allowNull: false,
   },
 });
-County.drop();
-/*
+
 County.sync()
   .then(() => console.log("Success"))
   .catch((e) => console.log(`${e}`));
-  */
 /*
 const XLSX = require("xlsx");
 const data = XLSX.readFile("data.xlsx", { cellDates: true });
