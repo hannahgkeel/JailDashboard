@@ -1,8 +1,27 @@
 const express = require("express");
 const path = require("path");
+const  { Sequelize, Model, DataTypes } = require("sequelize");
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const sequelize = new Sequelize({
+  database: process.env.APP_DB,
+  username: process.env.APP_USER,
+  password: process.env.APP_PW,
+  host: process.env.APP_HOST,
+  port: process.env.APP_PORT,
+  dialect: "postgres",
+  ssl: { rejectUnauthorized: false },
+  dialectOptions: {
+    ssl: true,
+    rejectUnauthorized: false,
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+});
 
 const testperson = {
   firstname: "XXXX",
