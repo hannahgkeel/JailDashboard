@@ -15,6 +15,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "babel-loader": "^8.2.2",
+    "chart.js": "^3.0.2",
     "css-loader": "^5.1.1",
     "express": "^4.17.1",
     "history": "^5.0.0",
@@ -30,6 +31,7 @@
     "xlsx": "^0.16.9"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
     "prettier": "2.2.1"
   },
   "scripts": {
@@ -42,6 +44,14 @@
     "presets": [
       "@babel/preset-env",
       "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
     ]
   }
 }
