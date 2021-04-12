@@ -19,10 +19,10 @@ const data = {
   ],
 };
 
-class SexGraph extends Component {
+class RaceGraph extends Component {
   render() {
     return <Pie data={data} title="Race" />;
   }
 }
 
-export default SexGraph;
+export default RaceGraph;
