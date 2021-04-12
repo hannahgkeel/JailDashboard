@@ -5,9 +5,22 @@ import DetentionTypeGraph from "../components/DetentionTypeGraph";
 import AgeGraph from "../components/AgeGraph";
 import "../App.css";
 import "../styles/Home.css";
-import { Typography } from "@material-ui/core";
+import { Typography, Paper, Grid, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 export default function County(props) {
+  const classes = useStyles();
+
   return (
       <div className="home pure-u-1">
         <div className="home-header pure-g">
@@ -20,10 +33,28 @@ export default function County(props) {
             </Typography>
           </h2>
         </div>
-      <SexGraph />
-      <RaceGraph />
-      <DetentionTypeGraph />
-      <AgeGraph />
+        <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+            <SexGraph />
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+            <RaceGraph />
+          </Paper>
+        </Grid>
+        <Grid item xs={6}>
+          <Paper className={classes.paper}>
+            <DetentionTypeGraph />
+          </Paper>
+        </Grid>
+      <Grid item xs={6}>
+        <Paper className={classes.paper}>
+          <AgeGraph />
+        </Paper>
+        </Grid>
+        </Grid>
     </div>
   );
 }
