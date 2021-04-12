@@ -100,5 +100,14 @@ app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
   }).then(entries => res.json(entries));
 });
 
+app.get("/pretrial/count/:countyId([0-9]{1,3})", (req, res) => {
+  County.findAll({
+    where: {
+      county_id: req.params.countyId,
+      status: "Pretrial"
+    }
+  }).then(entries => res.json(entries));
+});
+
 console.log(`Listening on :${port}`);
 app.listen(port);
