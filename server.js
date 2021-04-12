@@ -92,10 +92,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.get("/county/:countyName([0-9]{1,3})", (req, res) => {
+app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
-      county_id: req.params.countyName
+      county_id: req.params.countyId
     }
   }).then(entries => res.json(entries));
 });
