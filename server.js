@@ -100,7 +100,7 @@ app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
   }).then(entries => res.json(entries));
 });
 
-app.get("/pretrial/count/:countyId([0-9]{1,3})", (req, res) => {
+app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
       county_id: req.params.countyId,
