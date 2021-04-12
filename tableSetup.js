@@ -171,50 +171,58 @@ const County = sequelize.define("County", {
     allowNull: false,
   },
 });
-const XLSX = require("xlsx");
-const data = XLSX.readFile("data.xlsx", { cellDates: true });
-const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
 
-//console.log(new Date(json_data[45].releastime.setHours(json_data[45].releastime.getHours() - 4)));
-function loadData() {
-  for (let i = 0; i < json_data.length; i++) {
-    let entry = json_data[i];
-    /*
-    let e_arg_charg = (countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other");
-    let e_fel_misd = (countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other");
-    let e_race = countyData.get("0race" + entry.race.trim());
-    let e_sex = countyData.get("0sex" + entry.sex.trim())
-    let e_dob = entry.dob;
-    let e_name_id = entry.name_id;
-    let e_book_id = entry.book_id;
-    let e_bookdate = new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4));
-    let e_releasedate = new Date(entry.releastime.setHours(entry.releastime.getHours() - 4));
-    let e_docket_id = entry.docket_id;
-    let e_bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
-    let e_jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
-    let e_bondamount = entry.bondamt; */
-    let e_arg_charg = (countyData.get("1CHARGE" + entry.CHARGE) ? countyData.get("1CHARGE" + entry.CHARGE) : "Other");
-    let e_fel_misd = (countyData.get("1FEL_MISD" + entry.FEL_MISD) ? countyData.get("1FEL_MISD" + entry.FEL_MISD) : "Other");
-    let e_race = countyData.get("1RACE" + entry.RACE.trim());
-    let e_sex = countyData.get("1SEX" + entry.SEX.trim())
-    let e_dob = entry.DOB;
-    let e_name_id = entry.NAME_ID;
-    let e_book_id = entry.BOOK_ID;
-    let e_bookdate = new Date(entry["BOOK.DATE"]);
-    let e_releasedate = new Date(entry.RELEASE_DATE);
-    let e_docket_id = entry.docket_id;
-    let e_bondtype = (countyData.get("1BOND_TYPE" + entry.BOND_TYPE) ? countyData.get("1BOND_TYPE" + entry.BOND_TYPE) : "Other");
-    let e_jdstatus = (countyData.get("1STATUS" + entry.STATUS) ? countyData.get("1STATUS" + entry.STATUS) : "Other");
-    let e_bondamount = entry["BOND($)"];
-    //console.log(`${e_arg_charg}, ${e_fel_misd}, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_releasedate}, ${e_docket_id}, ${e_bondtype}, ${e_jdstatus}, ${e_bondamount}`)
-    (async () => {
-      await sequelize.sync({ alter: true });
-      const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd });
-      console.log(row.toJSON());
-    })();
-    //const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd }).catch((err) => console.log(err));
-  }
-}
-loadData();
+(async () => {
+  await sequelize.sync();
+  County.findAll({
+    where: {
+      county_id: 0
+    }
+  }).then(entries => console.log(entries));
+})();
+// const XLSX = require("xlsx");
+// const data = XLSX.readFile("data.xlsx", { cellDates: true });
+// const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
 
-// console.log(`${(countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other")}, ${(countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other")}, ${countyData.get("0race" + entry.race.trim())}, ${countyData.get("0sex" + entry.sex.trim())}, ${entry.dob}, ${entry.name_id}, ${entry.book_id}, ${new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4))}, ${new Date(entry.releastime.setHours(entry.releastime.getHours() - 4))}, ${entry.docket_id}, ${(countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other")}, ${(countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other")}`)
+// //console.log(new Date(json_data[45].releastime.setHours(json_data[45].releastime.getHours() - 4)));
+// function loadData() {
+//   for (let i = 0; i < json_data.length; i++) {
+//     let entry = json_data[i];
+//     /*
+//     let e_arg_charg = (countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other");
+//     let e_fel_misd = (countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other");
+//     let e_race = countyData.get("0race" + entry.race.trim());
+//     let e_sex = countyData.get("0sex" + entry.sex.trim())
+//     let e_dob = entry.dob;
+//     let e_name_id = entry.name_id;
+//     let e_book_id = entry.book_id;
+//     let e_bookdate = new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4));
+//     let e_releasedate = new Date(entry.releastime.setHours(entry.releastime.getHours() - 4));
+//     let e_docket_id = entry.docket_id;
+//     let e_bondtype = (countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other");
+//     let e_jdstatus = (countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other");
+//     let e_bondamount = entry.bondamt; */
+//     let e_arg_charg = (countyData.get("1CHARGE" + entry.CHARGE) ? countyData.get("1CHARGE" + entry.CHARGE) : "Other");
+//     let e_fel_misd = (countyData.get("1FEL_MISD" + entry.FEL_MISD) ? countyData.get("1FEL_MISD" + entry.FEL_MISD) : "Other");
+//     let e_race = countyData.get("1RACE" + entry.RACE.trim());
+//     let e_sex = countyData.get("1SEX" + entry.SEX.trim())
+//     let e_dob = entry.DOB;
+//     let e_name_id = entry.NAME_ID;
+//     let e_book_id = entry.BOOK_ID;
+//     let e_bookdate = new Date(entry["BOOK.DATE"]);
+//     let e_releasedate = new Date(entry.RELEASE_DATE);
+//     let e_docket_id = entry.docket_id;
+//     let e_bondtype = (countyData.get("1BOND_TYPE" + entry.BOND_TYPE) ? countyData.get("1BOND_TYPE" + entry.BOND_TYPE) : "Other");
+//     let e_jdstatus = (countyData.get("1STATUS" + entry.STATUS) ? countyData.get("1STATUS" + entry.STATUS) : "Other");
+//     let e_bondamount = entry["BOND($)"];
+//     //console.log(`${e_arg_charg}, ${e_fel_misd}, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_releasedate}, ${e_docket_id}, ${e_bondtype}, ${e_jdstatus}, ${e_bondamount}`)
+//     (async () => {
+//       await sequelize.sync({ alter: true });
+//       const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd });
+//       console.log(row.toJSON());
+//     })();
+//     //const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd }).catch((err) => console.log(err));
+//   }
+// }
+// loadData();
+// // console.log(`${(countyData.get("0arr_chrg" + entry.arr_chrg) ? countyData.get("0arr_chrg" + entry.arr_chrg) : "Other")}, ${(countyData.get("0fel_misd" + entry.fel_misd) ? countyData.get("0fel_misd" + entry.fel_misd) : "Other")}, ${countyData.get("0race" + entry.race.trim())}, ${countyData.get("0sex" + entry.sex.trim())}, ${entry.dob}, ${entry.name_id}, ${entry.book_id}, ${new Date(entry.bookdate.setHours(entry.bookdate.getHours() - 4))}, ${new Date(entry.releastime.setHours(entry.releastime.getHours() - 4))}, ${entry.docket_id}, ${(countyData.get("0bondtype" + entry.bondtype) ? countyData.get("0bondtype" + entry.bondtype) : "Other")}, ${(countyData.get("0jdstatus" + entry.jdstatus) ? countyData.get("0jdstatus" + entry.jdstatus) : "Other")}`)
