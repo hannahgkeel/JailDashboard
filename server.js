@@ -120,5 +120,9 @@ app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
   }).then(entries => res.json(entries));
 });
 
+app.get("/county_names", (req, res) => {
+  CountyName.findAll().then(entries => res.json(entries));
+})
+
 console.log(`Listening on :${port}`);
 app.listen(port);
