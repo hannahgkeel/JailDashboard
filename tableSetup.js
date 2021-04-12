@@ -212,7 +212,7 @@ function loadData() {
     //console.log(`${e_arg_charg}, ${e_fel_misd}, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_releasedate}, ${e_docket_id}, ${e_bondtype}, ${e_jdstatus}, ${e_bondamount}`)
     (async () => {
       await sequelize.sync({ force: true });
-      const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd });
+      const row = await County.create({ county_id: 1, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd });
       console.log(row.toJSON());
     })();
     //const row = await County.create({ county_id: 0, race: e_race, sex: e_sex, dob: e_dob, name_id: e_name_id, book_id: e_book_id, book_date: e_bookdate, docket_id: e_docket_id, status: e_jdstatus, release_date: e_releasedate, bond_type: e_bondtype, bond_amount: e_bondamount, charge: e_arg_charg, felony_misdemeanor: e_fel_misd }).catch((err) => console.log(err));
