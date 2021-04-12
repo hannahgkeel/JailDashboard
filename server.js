@@ -25,6 +25,17 @@ const sequelize = new Sequelize({
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
 
+const CountyName = sequelize.define("CountyName", {
+  county_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  }
+});
+
 const County = sequelize.define("County", {
   county_id: {
     type: DataTypes.INTEGER,
