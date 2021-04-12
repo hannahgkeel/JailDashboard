@@ -92,11 +92,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.get("/county/:countyName", (req, res) => {
-  //let x = 0 ? req.params.countyName === "Orange" : 1;
+app.get("/county/:countyName([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
-      county_id: 0
+      county_id: req.params.countyName
     }
   }).then(entries => res.json(entries));
 });
