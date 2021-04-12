@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const  { Sequelize, Model, DataTypes } = require("sequelize");
+const { Sequelize, Model, DataTypes } = require("sequelize");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -18,12 +18,15 @@ const sequelize = new Sequelize({
     rejectUnauthorized: false,
     ssl: {
       require: true,
-      rejectUnauthorized: false
-    }
-  }
+      rejectUnauthorized: false,
+    },
+  },
 });
 
-sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
+sequelize
+  .authenticate()
+  .then(() => console.log("Connection has been established successfully."))
+  .catch((e) => console.error("Unable to connect to the database:", e));
 
 const CountyName = sequelize.define("CountyName", {
   county_id: {
@@ -33,7 +36,7 @@ const CountyName = sequelize.define("CountyName", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
 
 const County = sequelize.define("County", {
@@ -95,7 +98,7 @@ const County = sequelize.define("County", {
   },
 });
 
-sequelize.sync().then(() => console.log("Database synced successfully."))
+sequelize.sync().then(() => console.log("Database synced successfully."));
 
 app.use(express.static(path.join(__dirname, "dist")));
 
@@ -106,23 +109,23 @@ app.get("/", (req, res) => {
 app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
-      county_id: req.params.countyId
-    }
-  }).then(entries => res.json(entries));
+      county_id: req.params.countyId,
+    },
+  }).then((entries) => res.json(entries));
 });
 
 app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
       county_id: req.params.countyId,
-      status: "Pretrial"
-    }
-  }).then(entries => res.json(entries));
+      status: "Pretrial",
+    },
+  }).then((entries) => res.json(entries));
 });
 
 app.get("/county_names", (req, res) => {
-  CountyName.findAll().then(entries => res.json(entries));
-})
+  CountyName.findAll().then((entries) => res.json(entries));
+});
 
 console.log(`Listening on :${port}`);
 app.listen(port);

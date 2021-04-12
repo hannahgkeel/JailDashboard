@@ -13,102 +13,102 @@ const sequelize = new Sequelize({
     rejectUnauthorized: false,
     ssl: {
       require: true,
-      rejectUnauthorized: false
-    }
-  }
+      rejectUnauthorized: false,
+    },
+  },
 });
-const countyData = new Map(Object.entries({
+const countyData = new Map(
+  Object.entries({
+    //STATUS
+    "0jdstatusPRET": "Pretrial",
+    /*
+     * So this means "0" + "jdstatus" + "PRET"
+     * "0" will be the index of the county in our County name table
+     * "jdstatus" is the column title
+     * "PRET" was the original value in the column
+     * "PRET" will now be mapped to "Pre-Trial"
+     * Repeat as necessary for each column where the value doesn't match other county tables
+     */
+    "0jdstatusBOP": "Bureau of prisons",
+    "0jdstatusDSMD": "Dismissed",
+    "0jdstatusFEDE": "Federal",
+    "0jdstatusINTX": "Intoxicated",
+    "0jdstatusNLA": "No longer active",
+    "0jdstatusSENT": "Sentenced",
+    "0jdstatusTSVD": "Time served",
+    "0jdstatusWKED": "Weekender",
+    "0jdstatusWRIT": "Writ",
 
-  //STATUS
-  "0jdstatusPRET": "Pretrial",
-  /*
-   * So this means "0" + "jdstatus" + "PRET"
-   * "0" will be the index of the county in our County name table
-   * "jdstatus" is the column title
-   * "PRET" was the original value in the column
-   * "PRET" will now be mapped to "Pre-Trial"
-   * Repeat as necessary for each column where the value doesn't match other county tables
-  */
-  "0jdstatusBOP": "Bureau of prisons",
-  "0jdstatusDSMD": "Dismissed",
-  "0jdstatusFEDE": "Federal",
-  "0jdstatusINTX": "Intoxicated",
-  "0jdstatusNLA": "No longer active",
-  "0jdstatusSENT": "Sentenced",
-  "0jdstatusTSVD": "Time served",
-  "0jdstatusWKED": "Weekender",
-  "0jdstatusWRIT": "Writ",
+    "1STATUSPRETRIAL": "Pretrial",
+    "1STATUSDISMISSED": "Dismissed",
+    "1STATUSSENTENCED": "Sentenced",
+    "1STATUSTIMESERVED": "Time served",
+    "1STATUSPROBATION": "Probation",
+    "1STATUSGUILTY": "Guilty",
+    "1STATUSCONSOLIDATED": "Consolidated",
+    "1STATUSFEDERAL": "Federal",
+    "1STATUS24HRHOLD": "24 Hour Hold",
+    // what is appealsupcrt?
 
-  "1STATUSPRETRIAL": "Pretrial",
-  "1STATUSDISMISSED": "Dismissed",
-  "1STATUSSENTENCED": "Sentenced",
-  "1STATUSTIMESERVED": "Time served",
-  "1STATUSPROBATION": "Probation",
-  "1STATUSGUILTY": "Guilty",
-  "1STATUSCONSOLIDATED": "Consolidated",
-  "1STATUSFEDERAL": "Federal",
-  "1STATUS24HRHOLD": "24 Hour Hold",
-  // what is appealsupcrt?
+    //RACE
+    "0raceA": "Asian",
+    "0raceB": "Black",
+    "0raceH": "Hispanic",
+    "0raceO": "Other",
+    "0raceU": "Unknown",
+    "0raceW": "White",
 
-  //RACE
-  "0raceA": "Asian",
-  "0raceB": "Black",
-  "0raceH": "Hispanic",
-  "0raceO": "Other",
-  "0raceU": "Unknown",
-  "0raceW": "White",
+    "1RACEA": "Asian",
+    "1RACEB": "Black",
+    "1RACEH": "Hispanic",
+    "1RACEO": "Other",
+    "1RACEU": "Unknown",
+    "1RACEW": "White",
 
-  "1RACEA": "Asian",
-  "1RACEB": "Black",
-  "1RACEH": "Hispanic",
-  "1RACEO": "Other",
-  "1RACEU": "Unknown",
-  "1RACEW": "White",
+    //SEX
+    "0sexM": "Male",
+    "0sexF": "Female",
 
-  //SEX
-  "0sexM": "Male",
-  "0sexF": "Female",
+    "1SEXM": "Male",
+    "1SEXF": "Female",
 
-  "1SEXM": "Male",
-  "1SEXF": "Female",
+    //BOND TYPE
+    "0bondtypeCASH": "Cash",
+    "0bondtypeDOM": "Domestic",
+    "0bondtypeINCL": "Included",
+    "0bondtypeNOBD": "No bond",
+    "0bondtypeOTHR": "Other",
+    "0bondtypeRLSA": "Release to sober adult",
+    "0bondtypeRWSO": "Release when sober",
+    "0bondtypeSEC": "Secured",
+    "0bondtypeSERV": "Serving",
+    "0bondtypeWRPR": "Written promise",
 
-  //BOND TYPE
-  "0bondtypeCASH": "Cash",
-  "0bondtypeDOM": "Domestic",
-  "0bondtypeINCL": "Included",
-  "0bondtypeNOBD": "No bond",
-  "0bondtypeOTHR": "Other",
-  "0bondtypeRLSA": "Release to sober adult",
-  "0bondtypeRWSO": "Release when sober",
-  "0bondtypeSEC": "Secured",
-  "0bondtypeSERV": "Serving",
-  "0bondtypeWRPR": "Written promise",
+    "1BOND_TYPECASH": "Cash",
+    "1BOND_TYPENO_BOND": "No bond",
+    "1BOND_TYPEOTHER": "Other",
+    "1BOND_TYPESECURED": "Secured",
+    "1BOND_TYPEUNSECURED": "Unsecured",
+    "1BOND_TYPEWRITTEN_PROMISE": "Written promise",
 
-  "1BOND_TYPECASH": "Cash",
-  "1BOND_TYPENO_BOND": "No bond",
-  "1BOND_TYPEOTHER": "Other",
-  "1BOND_TYPESECURED": "Secured",
-  "1BOND_TYPEUNSECURED": "Unsecured",
-  "1BOND_TYPEWRITTEN_PROMISE": "Written promise",
+    //CHARGE
+    //ALL other values in the charge column should map to "Other"
+    "0arr_chrgGS 15A-1345-F": "Probation violation",
+    "0arr_chrgGS 15A-1345": "Probation violation",
 
-  //CHARGE
-  //ALL other values in the charge column should map to "Other" 
-  "0arr_chrgGS 15A-1345-F": "Probation violation",
-  "0arr_chrgGS 15A-1345": "Probation violation",
+    "1CHARGE15A-1345": "Probation violation",
 
-  "1CHARGE15A-1345": "Probation violation",
+    //FELONY/MISDEMEANOR
+    "0fel_misdF": "Felony",
+    "0fel_misdM": "Misdemeanor",
 
-  //FELONY/MISDEMEANOR
-  "0fel_misdF": "Felony",
-  "0fel_misdM": "Misdemeanor",
+    "1FEL_MISDF": "Felony",
+    "1FEL_MISDM": "Misdemeanor",
+    // do we want to include more of the values?
 
-  "1FEL_MISDF": "Felony",
-  "1FEL_MISDM": "Misdemeanor",
-  // do we want to include more of the values?
-
-  //Missing:
-  //name_id, book_id, docket_id (which should all be ints)
-  //dob, bookdate, releasetime (which should all be dates)
+    //Missing:
+    //name_id, book_id, docket_id (which should all be ints)
+    //dob, bookdate, releasetime (which should all be dates)
 
     //Missing:
     //name_id, book_id, docket_id (which should all be ints)
@@ -116,7 +116,10 @@ const countyData = new Map(Object.entries({
   })
 );
 
-sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
+sequelize
+  .authenticate()
+  .then(() => console.log("Connection has been established successfully."))
+  .catch((e) => console.error("Unable to connect to the database:", e));
 const County = sequelize.define("County", {
   county_id: {
     type: DataTypes.INTEGER,
@@ -184,7 +187,7 @@ const CountyName = sequelize.define("CountyName", {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 });
 
 (async () => {
@@ -192,7 +195,7 @@ const CountyName = sequelize.define("CountyName", {
   const row = await CountyName.create({
     county_id: 1,
     name: "Forsyth",
-  })
+  });
   console.log(row.toJSON());
 })();
 
