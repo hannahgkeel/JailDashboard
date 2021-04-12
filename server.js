@@ -23,34 +23,82 @@ const sequelize = new Sequelize({
   }
 });
 
-const testperson = {
-  firstname: "XXXX",
-  lastname: "XXXX",
-  middlename:	"XXXX",
-  race:	"W",
-  sex: "M",
-  dob: "8/20/90",
-  name_id: "278068",
-  book_id: "61882",
-  book_date: "10/1/19 3:35 AM",
-  docketno: "00CR000000",
-  jdstatus: "PRET",
-  releasetime: "10/1/19 2:45 PM",
-  relreason: "MDB",
-  bondtype: "DOM",
-  bondamt: "0",
-  agency: "CHPD",
-  docket_id: "904283"
-}
+sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
+
+const County = sequelize.define("County", {
+  county_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  race: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  sex: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  dob: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  name_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  book_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  book_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  docket_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  release_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  bond_type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  bond_amount: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  charge: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  felony_misdemeanor: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+sequelize.sync().then(() => console.log("Database synced successfully."))
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
-app.get("/county", (req, res) => {
-  res.json(JSON.stringify(testperson));
+app.get("/county/:countyName", (req, res) => {
+  let x = 0 ? req.params.countyName === "Orange" : 1;
+  County.findAll({
+    where: {
+      county_id: x
+    }
+  }).then(entries => res.json(entries));
 });
 
 console.log(`Listening on :${port}`);
