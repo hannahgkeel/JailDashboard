@@ -110,7 +110,11 @@ const countyData = new Map(Object.entries({
   //name_id, book_id, docket_id (which should all be ints)
   //dob, bookdate, releasetime (which should all be dates)
 
-}));
+    //Missing:
+    //name_id, book_id, docket_id (which should all be ints)
+    //dob, bookdate, releasetime (which should all be dates)
+  })
+);
 
 sequelize.authenticate().then(() => console.log('Connection has been established successfully.')).catch(e => console.error('Unable to connect to the database:', e));
 const County = sequelize.define("County", {

@@ -1,4 +1,5 @@
 .Footer-container {
+<<<<<<< HEAD
     text-align: left;
     color: rgb(165, 165, 165);
     background-color: rgb(238, 238, 238);
@@ -9,4 +10,11 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+=======
+  font-family: "Open Sans";
+  text-align: left;
+  color: rgb(165, 165, 165);
+  height: 50px;
+  max-width: none !important;
+>>>>>>> 6e2c213a6b6798db0aa8d0fcd7b0b6a082d2a37f
 }
