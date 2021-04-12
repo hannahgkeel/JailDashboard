@@ -93,13 +93,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/county/:countyName", (req, res) => {
-  let x = 0 ? req.params.countyName === "Orange" : 1;
+  //let x = 0 ? req.params.countyName === "Orange" : 1;
   County.findAll({
     where: {
-      county_id: x
+      county_id: 0
     }
   }).then(entries => console.log(entries));
-  res.send("Hi");
+  res.send("Hi 2");
 });
 
 console.log(`Listening on :${port}`);
