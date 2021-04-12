@@ -2,6 +2,7 @@ import React from "react";
 import SexGraph from "../components/SexGraph";
 import RaceGraph from "../components/RaceGraph";
 import DetentionTypeGraph from "../components/DetentionTypeGraph";
+import AgeGraph from "../components/AgeGraph";
 
 export default function County(props) {
   return (
@@ -12,6 +13,7 @@ export default function County(props) {
       <SexGraph />
       <RaceGraph />
       <DetentionTypeGraph />
+      <AgeGraph />
     </div>
   );
 }
