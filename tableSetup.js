@@ -186,8 +186,8 @@ const CountyName = sequelize.define("CountyName", {
 (async () => {
   await sequelize.sync();
   const row = await CountyName.create({
-    county_id: 0,
-    name: "Orange",
+    county_id: 1,
+    name: "Forsyth",
   })
   console.log(row.toJSON());
 })();
