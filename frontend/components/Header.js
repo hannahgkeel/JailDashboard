@@ -37,18 +37,6 @@ export default function Header() {
           {/* <Typography align="left">
                         Criminal Justice Innovation Lab
                     </Typography> */}
-<<<<<<< HEAD
-                    <Typography>
-                        <Button href="/" color="inherit">Home</Button>
-                    </Typography>
-                    <Typography>
-                        <Button href="/about" color="inherit">About</Button>
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </div>
-    );
-=======
           <Typography>
             <Button href="/" color="inherit">
               Home
@@ -63,5 +51,4 @@ export default function Header() {
       </AppBar>
     </div>
   );
->>>>>>> 6e2c213a6b6798db0aa8d0fcd7b0b6a082d2a37f
 }

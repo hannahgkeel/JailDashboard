@@ -10,10 +10,6 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home pure-u-1">
-<<<<<<< HEAD
-        <Header />
-=======
->>>>>>> 6e2c213a6b6798db0aa8d0fcd7b0b6a082d2a37f
         <div className="home-header pure-g">
           <h2 className="title pure-u-1">
             <Typography variant="h4" font-weight="bold" text-align="center">
@@ -25,10 +21,6 @@ class Home extends React.Component {
           </h2>
         </div>
         <Search />
-<<<<<<< HEAD
-        <Footer />
-=======
->>>>>>> 6e2c213a6b6798db0aa8d0fcd7b0b6a082d2a37f
       </div>
     );
   }
