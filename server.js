@@ -7,8 +7,8 @@ const port = process.env.PORT || 5000;
 const testperson = {
   firstname: "XXXX",
   lastname: "XXXX",
-  middlename:	"XXXX",
-  race:	"W",
+  middlename: "XXXX",
+  race: "W",
   sex: "M",
   dob: "8/20/90",
   name_id: "278068",
@@ -21,8 +21,8 @@ const testperson = {
   bondtype: "DOM",
   bondamt: "0",
   agency: "CHPD",
-  docket_id: "904283"
-}
+  docket_id: "904283",
+};
 
 app.use(express.static(path.join(__dirname, "dist")));
 
