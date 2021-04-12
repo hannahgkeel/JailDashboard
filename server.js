@@ -98,7 +98,7 @@ app.get("/county/:countyName", (req, res) => {
     where: {
       county_id: 0
     }
-  }).then(entries => console.json(entries));
+  }).then(entries => res.json(entries));
 });
 
 console.log(`Listening on :${port}`);
