@@ -3,11 +3,7 @@ import Pie from "./Pie";
 import colorscheme from "../GlobalVar.js";
 
 const data = {
-  labels: [
-    "Black",
-    "White",
-    "Other",
-  ],
+  labels: ["Black", "White", "Other"],
   datasets: [
     {
       label: "Dataset 1",

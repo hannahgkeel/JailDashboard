@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Pie from "./Pie";
-import colorscheme from "../GlobalVar.js"
+import colorscheme from "../GlobalVar.js";
 
 const data = {
   labels: ["Male", "Female"],

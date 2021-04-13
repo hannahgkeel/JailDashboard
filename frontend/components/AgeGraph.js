@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Bar from "./Bar"
-import colorscheme from "../GlobalVar.js"
+import Bar from "./Bar";
+import colorscheme from "../GlobalVar.js";
 
 let data = {
   labels: ["16-21", "22-27", "28-37", "38-45", "46-55", "56+"],
@@ -17,7 +17,7 @@ let data = {
 
 class AgeGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" />
+    return <Bar data={data} indexAxis="x" />;
   }
 }
 

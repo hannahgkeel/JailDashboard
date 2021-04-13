@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Bar from "./Bar"
-import colorscheme from "../GlobalVar.js"
+import Bar from "./Bar";
+import colorscheme from "../GlobalVar.js";
 
 let data = {
   labels: ["Pretrial", "Sentence", "Federal"],
@@ -17,7 +17,7 @@ let data = {
 
 class DetentionTypeGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="y" />
+    return <Bar data={data} indexAxis="y" />;
   }
 }
 
