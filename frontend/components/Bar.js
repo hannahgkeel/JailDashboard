@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/Pie.css";
+import "../styles/Bar.css";
 import {
   Chart,
   ArcElement,
@@ -53,7 +53,7 @@ Chart.register(
   Tooltip
 );
 
-class Pie extends Component {
+class Bar extends Component {
   chartRef = React.createRef();
 
   componentDidMount() {
@@ -66,22 +66,13 @@ class Pie extends Component {
 
   buildChart = () => {
     const myChartRef = this.chartRef.current.getContext("2d");
-    const { data, title } = this.props;
+    const { data, title, indexAxis } = this.props;
 
-    let myPieChart = new Chart(myChartRef, {
-      type: "pie",
+    let myBarChart = new Chart(myChartRef, {
+      type: "bar",
       data: data,
       options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          title: {
-            display: true,
-            text: title,
-          },
-        },
+        indexAxis: indexAxis,
       },
     });
   };
@@ -89,10 +80,14 @@ class Pie extends Component {
   render() {
     return (
       <div>
-        <canvas id="Pie" ref={this.chartRef} />
+        <canvas
+          id="Bar"
+          ref={this.chartRef}
+          style={{ "max-width": "500px", maxHeight: "700px", margin: "0 auto" }}
+        />
       </div>
     );
   }
 }
 
-export default Pie;
+export default Bar;
