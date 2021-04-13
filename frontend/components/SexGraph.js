@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Pie from "./Pie";
+import colorscheme from "../GlobalVar.js"
 
 const data = {
   labels: ["Male", "Female"],
@@ -7,7 +8,7 @@ const data = {
     {
       label: "Dataset 1",
       data: [50, 70],
-      backgroundColor: ["orange", "brown"],
+      backgroundColor: colorscheme,
     },
   ],
 };

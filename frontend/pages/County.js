@@ -58,12 +58,12 @@ export default function County(props) {
           alignItems="center"
         > */}
           <Grid item xs={6}>
-            <Paper className={classes.paper}>
+            <Paper className="County-graph">
               <SexGraph />
             </Paper>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={classes.paper}>
+            <Paper className="County-graph">
               <RaceGraph />
             </Paper>
             {/* </Grid> */}
@@ -75,12 +75,12 @@ export default function County(props) {
           alignItems="flex-end"
         > */}
           <Grid item xs={6}>
-            <Paper className={classes.paper}>
+            <Paper className="County-graph">
               <DetentionTypeGraph />
             </Paper>
           </Grid>
           <Grid item xs={6}>
-            <Paper className={classes.paper}>
+            <Paper className="County-graph">
               <AgeGraph />
             </Paper>
             {/* </Grid> */}
