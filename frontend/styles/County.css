@@ -1,0 +1,9 @@
+#Grid {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.County-graph {
+  height: 50%;
+  min-height: 300px;
+}

@@ -3,11 +3,10 @@ import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
 let data = {
-  labels: ["16-21", "22-27", "28-37", "38-45", "46-55", "56+"],
+  labels: ["0", "1-3", "4-29", "30-364", "365+"],
   datasets: [
     {
-      label: "Age",
-      data: [2, 10, 28, 22, 2, 1],
+      data: [8, 30, 26, 11, 8, 4],
       backgroundColor: colorscheme,
       borderColor: colorscheme,
       borderWidth: 1,
@@ -15,10 +14,10 @@ let data = {
   ],
 };
 
-class AgeGraph extends Component {
+class LengthOfStayGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" title="Age" />;
+    return <Bar data={data} indexAxis="x" title="Length of Stay" />;
   }
 }
 
-export default AgeGraph;
+export default LengthOfStayGraph;
