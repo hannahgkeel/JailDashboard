@@ -127,6 +127,7 @@ app.get("/county_names", (req, res) => {
   CountyName.findAll().then((entries) => res.json(entries));
 });
 
+// This route must be listed last otherwise react router breaks
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
