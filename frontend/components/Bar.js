@@ -83,7 +83,7 @@ class Bar extends Component {
         <canvas
           id="Bar"
           ref={this.chartRef}
-          style={{ "max-width": "500px", maxHeight: "700px", margin: "0 auto" }}
+          style={{ "max-width": "500px", margin: "0 auto" }}
         />
       </div>
     );

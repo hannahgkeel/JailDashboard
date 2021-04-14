@@ -3,11 +3,12 @@ import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
 let data = {
-  labels: ["Pretrial", "Sentence", "Federal", "Other"],
+  labels: ["Misdemeanor", "Felony"],
   datasets: [
     {
-      label: "Detention Type",
-      data: [65, 59, 80, 81, 56, 55, 40],
+      label: "Charge Type",
+      labels: ["Misdemeanor", "Felony"],
+      data: [33, 20],
       backgroundColor: colorscheme,
       borderColor: colorscheme,
       borderWidth: 1,
@@ -15,10 +16,13 @@ let data = {
   ],
 };
 
-class DetentionTypeGraph extends Component {
+class ChargeTypeGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="y" />;
+    return <Bar 
+    data={data}
+    indexAxis="y"
+    />;
   }
 }
 
-export default DetentionTypeGraph;
+export default ChargeTypeGraph;

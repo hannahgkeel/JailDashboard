@@ -3,11 +3,11 @@ import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
 let data = {
-  labels: ["Pretrial", "Sentence", "Federal", "Other"],
+  labels: ["0", "1-3", "4-29", "30-364", "365+"],
   datasets: [
     {
-      label: "Detention Type",
-      data: [65, 59, 80, 81, 56, 55, 40],
+      label: "Length of Stay",
+      data: [8, 30, 26, 11, 8, 4],
       backgroundColor: colorscheme,
       borderColor: colorscheme,
       borderWidth: 1,
@@ -15,10 +15,10 @@ let data = {
   ],
 };
 
-class DetentionTypeGraph extends Component {
+class LengthOfStayGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="y" />;
+    return <Bar data={data} indexAxis="x" />;
   }
 }
 
-export default DetentionTypeGraph;
+export default LengthOfStayGraph;
