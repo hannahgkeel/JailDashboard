@@ -17,7 +17,7 @@ let data = {
 
 class DetentionTypeGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="y" />;
+    return <Bar data={data} indexAxis="y" title="Detention Type"/>;
   }
 }
 

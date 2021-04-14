@@ -17,7 +17,7 @@ let data = {
 
 class AgeGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" />;
+    return <Bar data={data} indexAxis="x" title="Age" />;
   }
 }
 

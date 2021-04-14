@@ -92,7 +92,7 @@ class Pie extends Component {
         <canvas 
         id="Pie" 
         ref={this.chartRef} 
-        style={{ "max-width": "500px", margin: "0 auto" }}/>
+        />
       </div>
     );
   }

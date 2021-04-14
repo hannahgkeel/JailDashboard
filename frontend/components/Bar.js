@@ -72,8 +72,30 @@ class Bar extends Component {
       type: "bar",
       data: data,
       options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: title,
+          },
         indexAxis: indexAxis,
+        scales: {
+          yAxes: [{
+            //barPercentage: 0.8,
+            barThickness: 400,  // number (pixels) or 'flex'
+            maxBarThickness: 800 // number (pixels)
+          }],
+          xAxes: [{
+            //barPercentage: 0.8,
+            barThickness: 400,  // number (pixels) or 'flex'
+            maxBarThickness: 800
+          }]
+        }
       },
+    },
     });
   };
 
@@ -81,9 +103,9 @@ class Bar extends Component {
     return (
       <div>
         <canvas
-          id="Bar"
+          //id="Bar"
           ref={this.chartRef}
-          style={{ "max-width": "500px", margin: "0 auto" }}
+          // style={{ "max-width": "500px", margin: "0 auto" }}
         />
       </div>
     );

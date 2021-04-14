@@ -21,6 +21,7 @@ class ChargeTypeGraph extends Component {
     return <Bar 
     data={data}
     indexAxis="y"
+    title="Charge Type"
     />;
   }
 }

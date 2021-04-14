@@ -6,7 +6,6 @@ let data = {
   labels: ["0", "1-3", "4-29", "30-364", "365+"],
   datasets: [
     {
-      label: "Length of Stay",
       data: [8, 30, 26, 11, 8, 4],
       backgroundColor: colorscheme,
       borderColor: colorscheme,
@@ -17,7 +16,7 @@ let data = {
 
 class LengthOfStayGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" />;
+    return <Bar data={data} indexAxis="x" title="Length of Stay"/>;
   }
 }
 
