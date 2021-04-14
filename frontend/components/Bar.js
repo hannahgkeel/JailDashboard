@@ -81,21 +81,25 @@ class Bar extends Component {
             display: true,
             text: title,
           },
-        indexAxis: indexAxis,
-        scales: {
-          yAxes: [{
-            //barPercentage: 0.8,
-            barThickness: 400,  // number (pixels) or 'flex'
-            maxBarThickness: 800 // number (pixels)
-          }],
-          xAxes: [{
-            //barPercentage: 0.8,
-            barThickness: 400,  // number (pixels) or 'flex'
-            maxBarThickness: 800
-          }]
-        }
+          indexAxis: indexAxis,
+          scales: {
+            yAxes: [
+              {
+                //barPercentage: 0.8,
+                barThickness: 400, // number (pixels) or 'flex'
+                maxBarThickness: 800, // number (pixels)
+              },
+            ],
+            xAxes: [
+              {
+                //barPercentage: 0.8,
+                barThickness: 400, // number (pixels) or 'flex'
+                maxBarThickness: 800,
+              },
+            ],
+          },
+        },
       },
-    },
     });
   };
 

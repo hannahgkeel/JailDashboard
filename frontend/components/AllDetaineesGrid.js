@@ -3,7 +3,7 @@ import SexGraph from "../components/SexGraph";
 import RaceGraph from "../components/RaceGraph";
 import DetentionTypeGraph from "../components/DetentionTypeGraph";
 import AgeGraph from "../components/AgeGraph";
-import { Paper, Grid, makeStyles } from "@material-ui/core";
+import { Paper, Grid, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,9 @@ function AllDetaineesGrid(props) {
           justify="flex-start"
           alignItems="flex-start"
         >
-          <Paper className={classes.paper}>Filters</Paper>
+          <Paper className={classes.paper}>
+            <Typography>Filters:</Typography>
+          </Paper>
         </Grid>
         <Grid container item spacing={2} xs={12} sm={9}>
           <Grid item xs={6}>

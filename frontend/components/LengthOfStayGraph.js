@@ -16,7 +16,7 @@ let data = {
 
 class LengthOfStayGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" title="Length of Stay"/>;
+    return <Bar data={data} indexAxis="x" title="Length of Stay" />;
   }
 }
 

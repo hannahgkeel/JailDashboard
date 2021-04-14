@@ -18,11 +18,7 @@ let data = {
 
 class ChargeTypeGraph extends Component {
   render() {
-    return <Bar 
-    data={data}
-    indexAxis="y"
-    title="Charge Type"
-    />;
+    return <Bar data={data} indexAxis="y" title="Charge Type" />;
   }
 }
 

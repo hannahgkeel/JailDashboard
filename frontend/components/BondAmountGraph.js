@@ -3,7 +3,13 @@ import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
 let data = {
-  labels: ["<$500", "$500-2,499", "$2,500-9,999", "$10,000-99,999", "$100,000+"],
+  labels: [
+    "<$500",
+    "$500-2,499",
+    "$2,500-9,999",
+    "$10,000-99,999",
+    "$100,000+",
+  ],
   datasets: [
     {
       label: "Bond Amount",
@@ -17,7 +23,7 @@ let data = {
 
 class BondAmountGraph extends Component {
   render() {
-    return <Bar data={data} indexAxis="x" title="Bond Amount"/>;
+    return <Bar data={data} indexAxis="x" title="Bond Amount" />;
   }
 }
 
