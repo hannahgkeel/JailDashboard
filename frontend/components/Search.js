@@ -1,36 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from 'axios';
 import "../styles/Search.css";
-import TextField from "@material-ui/core/TextField";
+import axios from 'axios';
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Typography, Button } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { 
+  Typography, 
+  Button, 
+  TextField, 
+  FormGroup,
+  Checkbox,
+  FormControlLabel 
+} from "@material-ui/core";
 
 export default function Search() {
-  // let counties;
   let history = useHistory();
 
   useEffect(() => {
-    console.log("use");
     axios.get("http://localhost:5000/county_names")
       .then(res => {
-        const data = res.data;
-        console.log(data);
+        setCounties(res.data)
       })
-  })
+      .catch(e => {console.log(e)})
+  }, [counties])
+
+  const [counties, setCounties] = useState([])
 
   // Initialize state
   const [state, setState] = useState({
-    county: "",
+    county: {},
     all: false,
     pretrial: false,
   });
 
   const handleChange = (event, value) => {
-    setState({ ...state, county: value.name });
+    setState({ ...state, county: value });
   };
 
   const handleCheckboxChange = (event) => {
@@ -58,7 +61,7 @@ export default function Search() {
           <Autocomplete
             id="combo-box-demo"
             options={counties}
-            getOptionLabel={(counties) => counties.name}
+            getOptionLabel={(counties) => counties.name }
             style={{ width: 300 }}
             onChange={handleChange}
             renderInput={(params) => (
@@ -101,4 +104,4 @@ export default function Search() {
   );
 }
 
-const counties = [{ name: "Orange County" }, { name: "Forsyth County" }];
+// const counties = [{ name: "Orange County" }, { name: "Forsyth County" }];
