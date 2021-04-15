@@ -12,12 +12,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.secondary
   },
 }));
 
 function AllDetaineesGrid(props) {
   const classes = useStyles();
+
+  const data = props.data;
 
   return (
     <div className="home pure-u-1">
@@ -38,12 +40,12 @@ function AllDetaineesGrid(props) {
         <Grid container item spacing={2} xs={12} sm={9}>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <SexGraph />
+              <SexGraph data={data} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <RaceGraph />
+              {/* <RaceGraph /> */}
             </Paper>
           </Grid>
           <Grid item xs={6}>

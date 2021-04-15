@@ -53,6 +53,8 @@ Chart.register(
   Tooltip
 );
 
+let myBarChart;
+
 class Bar extends Component {
   chartRef = React.createRef();
 
@@ -68,7 +70,9 @@ class Bar extends Component {
     const myChartRef = this.chartRef.current.getContext("2d");
     const { data, title, indexAxis } = this.props;
 
-    let myBarChart = new Chart(myChartRef, {
+    if (typeof myBarChart !== "undefined") myBarChart.destroy();
+
+    myBarChart = new Chart(myChartRef, {
       type: "bar",
       data: data,
       options: {

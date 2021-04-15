@@ -14,7 +14,7 @@ export default function County(props) {
     console.log(countyId);
     axios.get(`/county/${countyId}`)
       .then(res => {
-        console.log(res.data);
+        console.log("County:" + res.data);
         setData(res.data);
       })
   }, [data])

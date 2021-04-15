@@ -53,6 +53,8 @@ Chart.register(
   Tooltip
 );
 
+let myPieChart;
+
 class Pie extends Component {
   chartRef = React.createRef();
 
@@ -68,7 +70,11 @@ class Pie extends Component {
     const myChartRef = this.chartRef.current.getContext("2d");
     const { data, title } = this.props;
 
-    let myPieChart = new Chart(myChartRef, {
+    console.log(data)
+
+    if (typeof myPieChart !== "undefined") myPieChart.destroy();
+
+    myPieChart = new Chart(myChartRef, {
       type: "pie",
       data: data,
       options: {
