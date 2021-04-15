@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 import "../styles/Search.css";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -9,7 +10,17 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 export default function Search() {
+  // let counties;
   let history = useHistory();
+
+  useEffect(() => {
+    console.log("use");
+    axios.get("http://localhost:5000/county_names")
+      .then(res => {
+        const data = res.data;
+        console.log(data);
+      })
+  })
 
   // Initialize state
   const [state, setState] = useState({
