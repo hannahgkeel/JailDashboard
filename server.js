@@ -106,10 +106,6 @@ sequelize.sync().then(() => console.log("Database synced successfully."));
 
 app.use(express.static(path.join(__dirname, "dist")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
-});
-
 app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
   County.findAll({
     where: {
@@ -129,6 +125,11 @@ app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
 
 app.get("/county_names", (req, res) => {
   CountyName.findAll().then((entries) => res.json(entries));
+});
+
+// This route must be listed last otherwise react router breaks
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 console.log(`Listening on :${port}`);
