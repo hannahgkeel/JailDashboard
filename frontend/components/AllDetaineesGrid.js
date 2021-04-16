@@ -45,7 +45,7 @@ function AllDetaineesGrid(props) {
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              {/* <RaceGraph /> */}
+              <RaceGraph />
             </Paper>
           </Grid>
           <Grid item xs={6}>
