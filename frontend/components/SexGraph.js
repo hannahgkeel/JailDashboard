@@ -2,17 +2,6 @@ import React from "react";
 import Pie from "./Pie";
 import colorscheme from "../GlobalVar.js";
 
-// const data = {
-//   labels: ["Male", "Female"],
-//   datasets: [
-//     {
-//       label: "Dataset 1",
-//       data: [50, 70],
-//       backgroundColor: colorscheme,
-//     },
-//   ],
-// };
-
 function SexGraph(props) {
   const data = props.data;
 

@@ -45,17 +45,17 @@ function AllDetaineesGrid(props) {
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <RaceGraph />
+              <RaceGraph data={data}/>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <DetentionTypeGraph />
+              <DetentionTypeGraph data={data} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <AgeGraph />
+              <AgeGraph data={data} />
             </Paper>
           </Grid>
         </Grid>
