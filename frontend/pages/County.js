@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import AllDetaineesGrid from "../components/AllDetaineesGrid";
 import PretrialDetaineesGrid from "../components/PretrialDetaineesGrid";
 import "../styles/Home.css";
@@ -12,14 +12,13 @@ export default function County(props) {
   useEffect(() => {
     let countyId = props.location.state.county.county_id;
     console.log(countyId);
-    axios.get(`/county/${countyId}`)
-      .then(res => {
-        console.log("County:" + res.data);
-        setData(res.data);
-      })
-  }, [data])
+    axios.get(`/county/${countyId}`).then((res) => {
+      console.log("County:" + res.data);
+      setData(res.data);
+    });
+  }, [data]);
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   return (
     <div className="home pure-u-1">
@@ -35,7 +34,11 @@ export default function County(props) {
           </Typography>
         </h2>
       </div>
-      {isAllDetainees ? <AllDetaineesGrid data={data} /> : <PretrialDetaineesGrid data={data} />}
+      {isAllDetainees ? (
+        <AllDetaineesGrid data={data} />
+      ) : (
+        <PretrialDetaineesGrid data={data} />
+      )}
     </div>
   );
 }

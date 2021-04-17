@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
 }));
 
@@ -45,7 +45,7 @@ function AllDetaineesGrid(props) {
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <RaceGraph data={data}/>
+              <RaceGraph data={data} />
             </Paper>
           </Grid>
           <Grid item xs={6}>

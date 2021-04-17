@@ -16,22 +16,22 @@ function AgeGraph(props) {
 
   function formatData(data) {
     let dict = {
-      'range1': 0,
-      'range2': 0,
-      'range3': 0,
-      'range4': 0,
-      'range5': 0,
-      'range6': 0,
-    }
+      range1: 0,
+      range2: 0,
+      range3: 0,
+      range4: 0,
+      range5: 0,
+      range6: 0,
+    };
 
-    data.forEach(entry => {
+    data.forEach((entry) => {
       let age = calculateAge(entry.dob);
-      if(age < 22) dict['range1'] +=1;
-      else if (age < 28) dict['range2'] +=1;
-      else if (age < 38) dict['range3'] +=1;
-      else if (age<46) dict['range4'] +=1;
-      else if (age<56) dict['range5'] +=1;
-      else dict['range6'] +=1;
+      if (age < 22) dict["range1"] += 1;
+      else if (age < 28) dict["range2"] += 1;
+      else if (age < 38) dict["range3"] += 1;
+      else if (age < 46) dict["range4"] += 1;
+      else if (age < 56) dict["range5"] += 1;
+      else dict["range6"] += 1;
     });
 
     const ageData = {
@@ -39,7 +39,14 @@ function AgeGraph(props) {
       datasets: [
         {
           label: "Age",
-          data: [dict['range1'],dict['range2'],dict['range3'],dict['range4'],dict['range5'],dict['range1'],dict['range6']],
+          data: [
+            dict["range1"],
+            dict["range2"],
+            dict["range3"],
+            dict["range4"],
+            dict["range5"],
+            dict["range6"],
+          ],
           backgroundColor: colorscheme,
           borderColor: colorscheme,
           borderWidth: 1,
@@ -48,7 +55,6 @@ function AgeGraph(props) {
     };
 
     return ageData;
-
   }
   return <Bar data={formatData(data)} indexAxis="x" title="Age" />;
 }

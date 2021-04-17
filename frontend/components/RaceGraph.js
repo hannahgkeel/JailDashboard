@@ -7,16 +7,16 @@ function RaceGraph(props) {
 
   function formatData(data) {
     let dict = {
-      'White': 0,
-      'Black': 0,
-      'Other': 0,
-    }
+      White: 0,
+      Black: 0,
+      Other: 0,
+    };
 
-    data.forEach(entry => {
+    data.forEach((entry) => {
       if (entry.race === "White") dict["White"] += 1;
       else if (entry.race === "Black") dict["Black"] += 1;
       else dict["Other"] += 1;
-    })
+    });
 
     console.log(dict);
 
@@ -25,11 +25,11 @@ function RaceGraph(props) {
       datasets: [
         {
           label: "Dataset 1",
-          data: [dict["Black"], dict['White'], dict['Other']],
+          data: [dict["Black"], dict["White"], dict["Other"]],
           backgroundColor: colorscheme,
         },
       ],
-    }
+    };
 
     console.log(raceData);
 
@@ -37,7 +37,6 @@ function RaceGraph(props) {
   }
 
   return <Pie data={formatData(data)} title="Race" />;
-  
 }
 
 export default RaceGraph;

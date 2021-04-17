@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../styles/Search.css";
-import axios from 'axios';
+import axios from "axios";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { 
-  Typography, 
-  Button, 
-  TextField, 
+import {
+  Typography,
+  Button,
+  TextField,
   FormGroup,
   Checkbox,
-  FormControlLabel 
+  FormControlLabel,
 } from "@material-ui/core";
 
 export default function Search() {
   let history = useHistory();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/county_names")
-      .then(res => {
-        setCounties(res.data)
+    axios
+      .get("http://localhost:5000/county_names")
+      .then((res) => {
+        setCounties(res.data);
       })
-      .catch(e => {console.log(e)})
-  }, [counties])
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [counties]);
 
-  const [counties, setCounties] = useState([])
+  const [counties, setCounties] = useState([]);
 
   // Initialize state
   const [state, setState] = useState({
@@ -61,7 +64,7 @@ export default function Search() {
           <Autocomplete
             id="combo-box-demo"
             options={counties}
-            getOptionLabel={(counties) => counties.name }
+            getOptionLabel={(counties) => counties.name}
             style={{ width: 300 }}
             onChange={handleChange}
             renderInput={(params) => (

@@ -7,16 +7,16 @@ function DetentionTypeGraph(props) {
 
   function formatData(data) {
     let dict = {
-      'Pretrial': 0,
-      'Sentence': 0,
-      'Federal': 0,
-      'Other': 0,
-    }
+      Pretrial: 0,
+      Sentence: 0,
+      Federal: 0,
+      Other: 0,
+    };
 
-    data.forEach(entry => {
-      if(entry.status === "Pretrial") dict['Pretrial'] += 1;
-      else if (entry.status === "Sentence") dict['Sentence'] +=1;
-      else if(entry.status === 'Federal') dict['Federal'] +=1;
+    data.forEach((entry) => {
+      if (entry.status === "Pretrial") dict["Pretrial"] += 1;
+      else if (entry.status === "Sentence") dict["Sentence"] += 1;
+      else if (entry.status === "Federal") dict["Federal"] += 1;
       else dict["Other"] += 1;
     });
 
@@ -25,7 +25,12 @@ function DetentionTypeGraph(props) {
       datasets: [
         {
           label: "Detention Type",
-          data: [dict["Pretrial"],dict["Sentence"],dict["Federal"],dict["Other"]],
+          data: [
+            dict["Pretrial"],
+            dict["Sentence"],
+            dict["Federal"],
+            dict["Other"],
+          ],
           backgroundColor: colorscheme,
           borderColor: colorscheme,
           borderWidth: 1,

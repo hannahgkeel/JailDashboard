@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 function PretrialDetaineesGrid(props) {
   const classes = useStyles();
 
+  const data = props.data;
+
   return (
     <div className="home pure-u-1">
       <Grid id="Grid" container spacing={3}>
@@ -59,32 +61,32 @@ function PretrialDetaineesGrid(props) {
           <Grid container item spacing={2} xs={12} sm={9}>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <SexGraph />
+                <SexGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <RaceGraph />
+                <RaceGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <AgeGraph />
+                <AgeGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <ChargeTypeGraph />
+                <ChargeTypeGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <BondAmountGraph />
+                <BondAmountGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <LengthOfStayGraph />
+                <LengthOfStayGraph data={data} />
               </Paper>
             </Grid>
           </Grid>

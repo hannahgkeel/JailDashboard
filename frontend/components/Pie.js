@@ -53,12 +53,10 @@ Chart.register(
   Tooltip
 );
 
-
 class Pie extends Component {
-  
   constructor(props) {
     super(props);
-    this.chartRef = React.createRef()
+    this.chartRef = React.createRef();
   }
 
   componentDidMount() {

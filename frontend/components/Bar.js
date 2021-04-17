@@ -54,10 +54,9 @@ Chart.register(
 );
 
 class Bar extends Component {
-
   constructor(props) {
     super(props);
-    this.chartRef = React.createRef()
+    this.chartRef = React.createRef();
   }
 
   componentDidMount() {
@@ -111,10 +110,7 @@ class Bar extends Component {
   render() {
     return (
       <div>
-        <canvas
-          id="Bar"
-          ref={this.chartRef}
-        />
+        <canvas id="Bar" ref={this.chartRef} />
       </div>
     );
   }
