@@ -19,7 +19,18 @@ const useStyles = makeStyles((theme) => ({
 function AllDetaineesGrid(props) {
   const classes = useStyles();
 
-  const data = props.data;
+  //const data = props.data;
+
+   let rawData = props.data;
+   let data = [];
+   let uniqueBookId = new Set();
+
+   rawData.forEach((entry) => {
+     if (!uniqueBookId.has(entry.book_id)) {
+       uniqueBookId.add(entry.book_id);
+       data.push(entry);
+     }
+   })
 
   return (
     <div className="home pure-u-1">

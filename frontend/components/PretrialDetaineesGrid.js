@@ -28,7 +28,18 @@ const useStyles = makeStyles((theme) => ({
 function PretrialDetaineesGrid(props) {
   const classes = useStyles();
 
-  const data = props.data;
+  //const data = props.data;
+
+  let rawData = props.data;
+  let data = [];
+  let uniqueBookId = new Set();
+ 
+  rawData.forEach((entry) => {
+    if (!uniqueBookId.has(entry.book_id) && entry.status === 'Pretrial') {
+      uniqueBookId.add(entry.book_id);
+      data.push(entry);
+    }
+  })
 
   return (
     <div className="home pure-u-1">
