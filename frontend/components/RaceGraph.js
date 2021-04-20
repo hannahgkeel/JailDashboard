@@ -6,6 +6,7 @@ function RaceGraph(props) {
   const data = props.data;
 
   function formatData(data) {
+    console.log("Race graph:" + data);
     let dict = {
       White: 0,
       Black: 0,
@@ -18,7 +19,7 @@ function RaceGraph(props) {
       else dict["Other"] += 1;
     });
 
-    console.log(dict);
+    console.log("Racegraph2:" + dict);
 
     const raceData = {
       labels: ["Black", "White", "Other"],

@@ -11,9 +11,7 @@ export default function County(props) {
 
   useEffect(() => {
     let countyId = props.location.state.county.county_id;
-    console.log(countyId);
     axios.get(`/county/${countyId}`).then((res) => {
-      console.log("County:" + res.data);
       setData(res.data);
     });
   }, [data]);
