@@ -5,8 +5,10 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const path = require("path");
 const { Sequelize, Model, DataTypes } = require("sequelize");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 const sequelize = new Sequelize({

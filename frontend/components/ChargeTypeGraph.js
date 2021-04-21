@@ -1,25 +1,39 @@
-import React, { Component } from "react";
+import React from "react";
 import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
-let data = {
-  labels: ["Misdemeanor", "Felony"],
-  datasets: [
-    {
-      label: "Charge Type",
-      labels: ["Misdemeanor", "Felony"],
-      data: [33, 20],
-      backgroundColor: colorscheme,
-      borderColor: colorscheme,
-      borderWidth: 1,
-    },
-  ],
-};
+function ChargeTypeGraph(props) {
+  const data = props.data;
 
-class ChargeTypeGraph extends Component {
-  render() {
-    return <Bar data={data} indexAxis="y" title="Charge Type" />;
+  function formatData(data) {
+    let dict = {
+      Misdemeanor: 0,
+      Felony: 0,
+    };
+
+    data.forEach((entry) => {
+      if (entry.felony_misdemeanor === "Misdemeanor") dict["Misdemeanor"] += 1;
+      else dict["Felony"] += 1;
+    });
+
+    let chargeTypeData = {
+      labels: ["Misdemeanor", "Felony"],
+      datasets: [
+        {
+          label: "Charge Type",
+          labels: ["Misdemeanor", "Felony"],
+          data: [dict["Misdemeanor"], dict["Felony"]],
+          backgroundColor: colorscheme,
+          borderColor: colorscheme,
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    return chargeTypeData;
   }
+
+  return <Bar data={formatData(data)} indexAxis="y" title="Charge Type" />;
 }
 
 export default ChargeTypeGraph;

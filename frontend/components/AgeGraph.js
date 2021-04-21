@@ -1,24 +1,62 @@
-import React, { Component } from "react";
+import React from "react";
 import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
-let data = {
-  labels: ["16-21", "22-27", "28-37", "38-45", "46-55", "56+"],
-  datasets: [
-    {
-      label: "Age",
-      data: [2, 10, 28, 22, 2, 1],
-      backgroundColor: colorscheme,
-      borderColor: colorscheme,
-      borderWidth: 1,
-    },
-  ],
-};
+function AgeGraph(props) {
+  const data = props.data;
 
-class AgeGraph extends Component {
-  render() {
-    return <Bar data={data} indexAxis="x" title="Age" />;
+  function calculateAge(dobString) {
+    let idx = dobString.indexOf("T");
+    let date = new Date(dobString.substring(0, idx));
+    let ageDif = Date.now() - date.getTime();
+    let ageDate = new Date(ageDif);
+
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
   }
+
+  function formatData(data) {
+    let dict = {
+      range1: 0,
+      range2: 0,
+      range3: 0,
+      range4: 0,
+      range5: 0,
+      range6: 0,
+    };
+
+    data.forEach((entry) => {
+      let age = calculateAge(entry.dob);
+      if (age < 22) dict["range1"] += 1;
+      else if (age < 28) dict["range2"] += 1;
+      else if (age < 38) dict["range3"] += 1;
+      else if (age < 46) dict["range4"] += 1;
+      else if (age < 56) dict["range5"] += 1;
+      else dict["range6"] += 1;
+    });
+
+    const ageData = {
+      labels: ["16-21", "22-27", "28-37", "38-45", "46-55", "56+"],
+      datasets: [
+        {
+          label: "Age",
+          data: [
+            dict["range1"],
+            dict["range2"],
+            dict["range3"],
+            dict["range4"],
+            dict["range5"],
+            dict["range6"],
+          ],
+          backgroundColor: colorscheme,
+          borderColor: colorscheme,
+          borderWidth: 1,
+        },
+      ],
+    };
+
+    return ageData;
+  }
+  return <Bar data={formatData(data)} indexAxis="x" title="Age" />;
 }
 
 export default AgeGraph;

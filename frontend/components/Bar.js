@@ -54,7 +54,10 @@ Chart.register(
 );
 
 class Bar extends Component {
-  chartRef = React.createRef();
+  constructor(props) {
+    super(props);
+    this.chartRef = React.createRef();
+  }
 
   componentDidMount() {
     this.buildChart();
@@ -65,10 +68,11 @@ class Bar extends Component {
   }
 
   buildChart = () => {
-    const myChartRef = this.chartRef.current.getContext("2d");
+    if (this.myBarChart !== undefined) this.myBarChart.destroy();
+
     const { data, title, indexAxis } = this.props;
 
-    let myBarChart = new Chart(myChartRef, {
+    this.myBarChart = new Chart(this.chartRef.current, {
       type: "bar",
       data: data,
       options: {
@@ -106,10 +110,7 @@ class Bar extends Component {
   render() {
     return (
       <div>
-        <canvas
-          id="Bar"
-          ref={this.chartRef}
-        />
+        <canvas id="Bar" ref={this.chartRef} />
       </div>
     );
   }

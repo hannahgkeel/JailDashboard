@@ -28,6 +28,19 @@ const useStyles = makeStyles((theme) => ({
 function PretrialDetaineesGrid(props) {
   const classes = useStyles();
 
+  //const data = props.data;
+
+  let rawData = props.data;
+  let data = [];
+  let uniqueBookId = new Set();
+
+  rawData.forEach((entry) => {
+    if (!uniqueBookId.has(entry.book_id) && entry.status === "Pretrial") {
+      uniqueBookId.add(entry.book_id);
+      data.push(entry);
+    }
+  });
+
   return (
     <div className="home pure-u-1">
       <Grid id="Grid" container spacing={3}>
@@ -59,32 +72,32 @@ function PretrialDetaineesGrid(props) {
           <Grid container item spacing={2} xs={12} sm={9}>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <SexGraph />
+                <SexGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <RaceGraph />
+                <RaceGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <AgeGraph />
+                <AgeGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <ChargeTypeGraph />
+                <ChargeTypeGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <BondAmountGraph />
+                <BondAmountGraph data={data} />
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className="County-graph">
-                <LengthOfStayGraph />
+                <LengthOfStayGraph data={data} />
               </Paper>
             </Grid>
           </Grid>

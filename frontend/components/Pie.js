@@ -54,7 +54,10 @@ Chart.register(
 );
 
 class Pie extends Component {
-  chartRef = React.createRef();
+  constructor(props) {
+    super(props);
+    this.chartRef = React.createRef();
+  }
 
   componentDidMount() {
     this.buildChart();
@@ -65,12 +68,11 @@ class Pie extends Component {
   }
 
   buildChart = () => {
-    const myChartRef = this.chartRef.current.getContext("2d");
-    const { data, title } = this.props;
+    if (this.myPieChart !== undefined) this.myPieChart.destroy();
 
-    let myPieChart = new Chart(myChartRef, {
+    this.myPieChart = new Chart(this.chartRef.current, {
       type: "pie",
-      data: data,
+      data: this.props.data,
       options: {
         responsive: true,
         plugins: {
@@ -79,7 +81,7 @@ class Pie extends Component {
           },
           title: {
             display: true,
-            text: title,
+            text: this.props.title,
           },
         },
       },
