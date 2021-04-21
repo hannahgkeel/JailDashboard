@@ -161,7 +161,17 @@ export default function County(props) {
         </h2>
       </div>
       <Grid id="Grid" container spacing={2} direction="row">
-
+        <Grid item xs={12}>
+          <Paper>
+            <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
+              There are currently XYZ {isAllDetainees ? "" : "pretrial"}{" "}
+              detainees in Orange County.
+            </Typography>
+            <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
+              This data was last updated on 00/00/2021
+            </Typography>
+          </Paper>
+        </Grid>
         <Grid
           container
           item
@@ -203,70 +213,155 @@ export default function County(props) {
                 label="Female"
               />
             </FormGroup>
-            <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Detention Type
-            </FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleDetentionTypeFilter}
-                    name="Pretrial"
+
+            {isAllDetainees ? (
+              <span>
+                <FormLabel component="legend" style={{ "text-align": "left" }}>
+                  Detention Type
+                </FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleDetentionTypeFilter}
+                        name="Pretrial"
+                      />
+                    }
+                    label="Pretrial"
                   />
-                }
-                label="Pretrial"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    onChange={handleDetentionTypeFilter}
-                    name="Sentenced"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleDetentionTypeFilter}
+                        name="Sentenced"
+                      />
+                    }
+                    label="Sentenced"
                   />
-                }
-                label="Sentenced"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox onChange={handleDetentionTypeFilter} name="Federal" />
-                }
-                label="Federal Hold"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox onChange={handleDetentionTypeFilter} name="Other" />
-                }
-                label="Other"
-              />
-            </FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleDetentionTypeFilter}
+                        name="Federal"
+                      />
+                    }
+                    label="Federal Hold"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleDetentionTypeFilter}
+                        name="Other"
+                      />
+                    }
+                    label="Other"
+                  />
+                </FormGroup>
+              </span>
+            ) : (
+              ""
+            )}
             <FormLabel component="legend" style={{ "text-align": "left" }}>
               Age
             </FormLabel>
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range1" />}
-                label="16 - 21"
+                label="16-21 years"
               />
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range2" />}
-                label="22 - 27"
+                label="22-27 years"
               />
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range3" />}
-                label="28 - 37"
+                label="28-37 years"
               />
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range4" />}
-                label="38 - 45"
+                label="38-45 years"
               />
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range5" />}
-                label="46 - 55"
+                label="46-55 years"
               />
               <FormControlLabel
                 control={<Checkbox onChange={handleAgeFilter} name="range6" />}
-                label="56+"
+                label="56+ years"
               />
             </FormGroup>
+
+            {/* Pretrial ONLY filters */}
+
+            {isAllDetainees ? (
+              ""
+            ) : (
+              <span>
+                <FormLabel component="legend" style={{ "text-align": "left" }}>
+                  Charge Type
+                </FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name="Felony" />}
+                    label="Felony"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="Misdemeanor" />}
+                    label="Misdemeanor"
+                  />
+                </FormGroup>
+                <FormLabel component="legend" style={{ "text-align": "left" }}>
+                  Bond Amount
+                </FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name="range1" />}
+                    label="Less than $500"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range2" />}
+                    label="$500 to $2,499"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range3" />}
+                    label="$2,500 to $9,999"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range4" />}
+                    label="$10,000 to 99,999"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range4" />}
+                    label="$100,000+"
+                  />
+                </FormGroup>
+                <FormLabel component="legend" style={{ "text-align": "left" }}>
+                  Length of Stay
+                </FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name="range1" />}
+                    label="Less than 1 day"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range2" />}
+                    label="1-3 days"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range3" />}
+                    label="4-29 days"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range4" />}
+                    label="30-364 days"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="range5" />}
+                    label="365+ days"
+                  />
+                </FormGroup>
+              </span>
+            )}
           </Paper>
         </Grid>
 
@@ -276,7 +371,6 @@ export default function County(props) {
           <PretrialDetaineesGrid data={filterData()} />
         )}
       </Grid>
-
     </div>
   );
 }

@@ -3,10 +3,7 @@ import SexGraph from "../components/SexGraph";
 import RaceGraph from "../components/RaceGraph";
 import DetentionTypeGraph from "../components/DetentionTypeGraph";
 import AgeGraph from "../components/AgeGraph";
-import {
-  Paper,
-  Grid
-} from "@material-ui/core";
+import { Paper, Grid } from "@material-ui/core";
 
 function AllDetaineesGrid(props) {
   let rawData = props.data;
