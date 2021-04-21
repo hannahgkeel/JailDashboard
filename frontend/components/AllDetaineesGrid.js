@@ -3,7 +3,16 @@ import SexGraph from "../components/SexGraph";
 import RaceGraph from "../components/RaceGraph";
 import DetentionTypeGraph from "../components/DetentionTypeGraph";
 import AgeGraph from "../components/AgeGraph";
-import { Paper, Grid, makeStyles, Typography } from "@material-ui/core";
+import { 
+  Paper, 
+  Grid, 
+  makeStyles, 
+  Typography, 
+  FormControlLabel, 
+  FormGroup, 
+  Checkbox,
+  FormLabel
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,9 +41,12 @@ function AllDetaineesGrid(props) {
 
    const  [state, setState] = useState({
       raceFilters: new Set(),
+      sexFilters: new Set(),
+      detentionTypeFilters: new Set(),
    })
 
-   function handleRaceChange(event) {
+   // Handle individual filters functions
+   function handleRaceFilter(event) {
     const target = event.target;
     const checked = target.checked;
     const name = target.name;
@@ -46,18 +58,53 @@ function AllDetaineesGrid(props) {
     setState({...state, raceFilters: set });
    }
 
+   function handleSexFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const name = target.name; 
+
+    let set = new Set(state.sexFilters);
+
+    checked ? set.add(name) : set.delete(name);
+
+    setState({...state, sexFilters: set});
+   }
+
+   function handleDetentionTypeFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const name = target.name; 
+
+    let set = new Set(state.detentionTypeFilters);
+
+    checked ? set.add(name) : set.delete(name);
+
+    setState({...state, detentionTypeFilters: set});
+   }
+
+   // filterData: returns a new data set according to selected filters
    function filterData() {
-    const {raceFilters} = state;
+    const {raceFilters, sexFilters, detentionTypeFilters} = state;
+    let rf = new Set(raceFilters);
+    let sf = new Set(sexFilters);
+    let df = new Set(detentionTypeFilters);
 
-    console.log("racefilters:" + new Array(...raceFilters).join(' '));
+    // If a set of filters is empty, all should be included
+    if (rf.size === 0) 
+      rf.add("White").add("Black").add("Other");
+    if(sf.size === 0) 
+      sf.add('Male').add('Female');
+    if(df.size === 0)
+      df.add('Pretrial').add('Sentenced').add('Federal').add('Other');
 
-     let changedData = [];
-     data.forEach(entry => {
-       if (raceFilters.has(entry.race)) {
-        console.log("Entry:" + entry)
-        changedData.push(entry);
-       }
-     });
+    let changedData = [];
+
+    data.forEach(entry => {
+      if (rf.has(entry.race) && sf.has(entry.sex) && df.has(entry.status)) {
+      console.log("Entry:" + entry)
+      changedData.push(entry);
+      }
+    });
 
      return changedData;
    }
@@ -76,35 +123,118 @@ function AllDetaineesGrid(props) {
         >
           <Paper className={classes.paper}>
             <Typography>Filters:</Typography>
-            <form id="race">
-              <label for="White">White:</label>
-              <input onChange={handleRaceChange} name="White" type="checkbox"/>
-              <label for="Black">Black:</label>
-              <input onChange={handleRaceChange} name="Black" type="checkbox"/>
-              <label for="Other">Other:</label>
-              <input onChange={handleRaceChange} name="Other" type="checkbox"/>
-            </form>
+            <FormLabel component="legend" style={{'text-align': 'left'}}>Race</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleRaceFilter}
+                    name="White"
+                  />
+                }
+                label="White"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleRaceFilter}
+                    name="Black"
+                  />
+                }
+                label="Black"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleRaceFilter}
+                    name="Other"
+                  />
+                }
+                label="Other"
+              />
+            </FormGroup>
+            <FormLabel component="legend" style={{'text-align': 'left'}}>Sex</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleSexFilter}
+                    name="Male"
+                  />
+                }
+                label="Male"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleSexFilter}
+                    name="Female"
+                  />
+                }
+                label="Female"
+              />
+            </FormGroup>
+            <FormLabel component="legend" style={{'text-align': 'left'}}>Detention Type</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleDetentionTypeFilter}
+                    name="Pretrial"
+                  />
+                }
+                label="Pretrial"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleDetentionTypeFilter}
+                    name="Sentenced"
+                  />
+                }
+                label="Sentenced"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleDetentionTypeFilter}
+                    name="Federal"
+                  />
+                }
+                label="Federal"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    onChange={handleDetentionTypeFilter}
+                    name="Other"
+                  />
+                }
+                label="Other"
+              />
+            </FormGroup>
+            <FormLabel component="legend" style={{'text-align': 'left'}}>Age</FormLabel>
           </Paper>
         </Grid>
         <Grid container item spacing={2} xs={12} sm={9}>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <SexGraph data={data} />
+              <SexGraph data={filterData()} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <RaceGraph data={data} />
+              <RaceGraph data={filterData()} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <DetentionTypeGraph data={data} />
+              <DetentionTypeGraph data={filterData()} />
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className="County-graph">
-              <AgeGraph data={data} />
+              <AgeGraph data={filterData()} />
             </Paper>
           </Grid>
         </Grid>
