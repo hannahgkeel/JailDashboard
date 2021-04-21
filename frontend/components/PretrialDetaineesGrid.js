@@ -33,13 +33,13 @@ function PretrialDetaineesGrid(props) {
   let rawData = props.data;
   let data = [];
   let uniqueBookId = new Set();
- 
+
   rawData.forEach((entry) => {
-    if (!uniqueBookId.has(entry.book_id) && entry.status === 'Pretrial') {
+    if (!uniqueBookId.has(entry.book_id) && entry.status === "Pretrial") {
       uniqueBookId.add(entry.book_id);
       data.push(entry);
     }
-  })
+  });
 
   return (
     <div className="home pure-u-1">

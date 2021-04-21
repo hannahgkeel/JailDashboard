@@ -10,14 +10,13 @@ const colorscheme = [
   "#fff7fb",
 ];
 
-export default colorscheme;
+export function calculateAge(dobString) {
+  let idx = dobString.indexOf("T");
+  let date = new Date(dobString.substring(0, idx));
+  let ageDif = Date.now() - date.getTime();
+  let ageDate = new Date(ageDif);
 
-// #fff7fb
-// #ece2f0
-// #d0d1e6
-// #a6bddb
-// #67a9cf
-// #3690c0
-// #02818a
-// #016c59
-// #014636
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
+export default colorscheme;
