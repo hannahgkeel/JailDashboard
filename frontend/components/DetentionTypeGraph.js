@@ -21,7 +21,7 @@ function DetentionTypeGraph(props) {
     });
 
     const detentionTypeData = {
-      labels: ["Pretrial", "Sentenced", "Federal", "Other"],
+      labels: ["Pretrial", "Sentenced", "Federal Hold", "Other"],
       datasets: [
         {
           label: "Detention Type",
