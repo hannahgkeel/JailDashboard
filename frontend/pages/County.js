@@ -10,22 +10,31 @@ import {
   Grid,
   makeStyles,
   Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   FormControlLabel,
   FormGroup,
   Checkbox,
   FormLabel,
 } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const MAX_AGE = 110;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    //flexGrow: 1,
+    width: '100%',
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
   },
 }));
 
@@ -182,114 +191,154 @@ export default function County(props) {
           alignItems="flex-start"
         >
           <Paper className={classes.paper}>
-            <Typography>Filters:</Typography>
-            <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Race
-            </FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox onChange={handleRaceFilter} name="White" />}
-                label="White"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleRaceFilter} name="Black" />}
-                label="Black"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleRaceFilter} name="Other" />}
-                label="Other"
-              />
-            </FormGroup>
-            <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Sex
-            </FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox onChange={handleSexFilter} name="Male" />}
-                label="Male"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleSexFilter} name="Female" />}
-                label="Female"
-              />
-            </FormGroup>
-
-            {isAllDetainees ? (
-              <span>
-                <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Detention Type
-                </FormLabel>
+            <Typography className={classes.heading}>Filters:</Typography>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>Race</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
                 <FormGroup>
                   <FormControlLabel
                     control={
-                      <Checkbox
-                        onChange={handleDetentionTypeFilter}
-                        name="Pretrial"
-                      />
+                      <Checkbox onChange={handleRaceFilter} name="White" />
                     }
-                    label="Pretrial"
+                    label="White"
                   />
                   <FormControlLabel
                     control={
-                      <Checkbox
-                        onChange={handleDetentionTypeFilter}
-                        name="Sentenced"
-                      />
+                      <Checkbox onChange={handleRaceFilter} name="Black" />
                     }
-                    label="Sentenced"
+                    label="Black"
                   />
                   <FormControlLabel
                     control={
-                      <Checkbox
-                        onChange={handleDetentionTypeFilter}
-                        name="Federal"
-                      />
-                    }
-                    label="Federal Hold"
-                  />
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={handleDetentionTypeFilter}
-                        name="Other"
-                      />
+                      <Checkbox onChange={handleRaceFilter} name="Other" />
                     }
                     label="Other"
                   />
                 </FormGroup>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>Sex</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleSexFilter} name="Male" />
+                    }
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleSexFilter} name="Female" />
+                    }
+                    label="Female"
+                  />
+                </FormGroup>
+              </AccordionDetails>
+            </Accordion>
+            {isAllDetainees ? (
+              <span>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>
+                      Detention Type
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={handleDetentionTypeFilter}
+                            name="Pretrial"
+                          />
+                        }
+                        label="Pretrial"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={handleDetentionTypeFilter}
+                            name="Sentenced"
+                          />
+                        }
+                        label="Sentenced"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={handleDetentionTypeFilter}
+                            name="Federal"
+                          />
+                        }
+                        label="Federal Hold"
+                      />
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            onChange={handleDetentionTypeFilter}
+                            name="Other"
+                          />
+                        }
+                        label="Other"
+                      />
+                    </FormGroup>
+                  </AccordionDetails>
+                </Accordion>
               </span>
             ) : (
               ""
             )}
-            <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Age
-            </FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range1" />}
-                label="16-21 years"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range2" />}
-                label="22-27 years"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range3" />}
-                label="28-37 years"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range4" />}
-                label="38-45 years"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range5" />}
-                label="46-55 years"
-              />
-              <FormControlLabel
-                control={<Checkbox onChange={handleAgeFilter} name="range6" />}
-                label="56+ years"
-              />
-            </FormGroup>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>Age</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range1" />
+                    }
+                    label="16-21 years"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range2" />
+                    }
+                    label="22-27 years"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range3" />
+                    }
+                    label="28-37 years"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range4" />
+                    }
+                    label="38-45 years"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range5" />
+                    }
+                    label="46-55 years"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox onChange={handleAgeFilter} name="range6" />
+                    }
+                    label="56+ years"
+                  />
+                </FormGroup>
+              </AccordionDetails>
+            </Accordion>
 
             {/* Pretrial ONLY filters */}
 
