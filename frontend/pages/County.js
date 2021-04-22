@@ -305,7 +305,7 @@ export default function County(props) {
             ) : (
               <span>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Charge Type
+                <Typography className={classes.heading}>Charge Type</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -318,7 +318,7 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Bond Amount
+                <Typography className={classes.heading}>Bond Amount</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -343,7 +343,7 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Length of Stay
+                <Typography className={classes.heading}>Length of Stay</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
