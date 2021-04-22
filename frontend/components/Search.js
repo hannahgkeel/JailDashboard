@@ -8,7 +8,7 @@ import {
   Button,
   TextField,
   FormGroup,
-  Radio,
+  Checkbox,
   FormControlLabel,
 } from "@material-ui/core";
 
@@ -74,7 +74,7 @@ export default function Search() {
           <FormGroup>
             <FormControlLabel
               control={
-                <Radio
+                <Checkbox
                   checked={state.all}
                   onChange={handleCheckboxChange}
                   name="all"
@@ -84,7 +84,7 @@ export default function Search() {
             />
             <FormControlLabel
               control={
-                <Radio
+                <Checkbox
                   checked={state.pretrial}
                   onChange={handleCheckboxChange}
                   name="pretrial"
