@@ -25,7 +25,7 @@ const MAX_AGE = 110;
 const useStyles = makeStyles((theme) => ({
   root: {
     //flexGrow: 1,
-    width: '100%',
+    width: "100%",
   },
   paper: {
     padding: theme.spacing(2),
@@ -191,7 +191,7 @@ export default function County(props) {
           alignItems="flex-start"
         >
           <Paper className={classes.paper}>
-            <Typography className={classes.heading}>Filters:</Typography>
+            <Typography variant="h6">Filters:</Typography>
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>Race</Typography>
@@ -346,69 +346,87 @@ export default function County(props) {
               ""
             ) : (
               <span>
-                <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Charge Type
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox name="Felony" />}
-                    label="Felony"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="Misdemeanor" />}
-                    label="Misdemeanor"
-                  />
-                </FormGroup>
-                <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Bond Amount
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox name="range1" />}
-                    label="Less than $500"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range2" />}
-                    label="$500 to $2,499"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range3" />}
-                    label="$2,500 to $9,999"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range4" />}
-                    label="$10,000 to 99,999"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range4" />}
-                    label="$100,000+"
-                  />
-                </FormGroup>
-                <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Length of Stay
-                </FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox name="range1" />}
-                    label="Less than 1 day"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range2" />}
-                    label="1-3 days"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range3" />}
-                    label="4-29 days"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range4" />}
-                    label="30-364 days"
-                  />
-                  <FormControlLabel
-                    control={<Checkbox name="range5" />}
-                    label="365+ days"
-                  />
-                </FormGroup>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>
+                      Charge Type
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox name="Felony" />}
+                        label="Felony"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="Misdemeanor" />}
+                        label="Misdemeanor"
+                      />
+                    </FormGroup>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>
+                      Bond Amount
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox name="range1" />}
+                        label="Less than $500"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range2" />}
+                        label="$500 to $2,499"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range3" />}
+                        label="$2,500 to $9,999"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range4" />}
+                        label="$10,000 to 99,999"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range4" />}
+                        label="$100,000+"
+                      />
+                    </FormGroup>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography className={classes.heading}>
+                      Length of Stay
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox name="range1" />}
+                        label="Less than 1 day"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range2" />}
+                        label="1-3 days"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range3" />}
+                        label="4-29 days"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range4" />}
+                        label="30-364 days"
+                      />
+                      <FormControlLabel
+                        control={<Checkbox name="range5" />}
+                        label="365+ days"
+                      />
+                    </FormGroup>
+                  </AccordionDetails>
+                </Accordion>
               </span>
             )}
           </Paper>
