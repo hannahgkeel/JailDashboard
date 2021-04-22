@@ -27,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightBold,
+    paddingTop: theme.spacing(2),
+  },
 }));
 
 export default function County(props) {
@@ -182,9 +187,9 @@ export default function County(props) {
           alignItems="flex-start"
         >
           <Paper className={classes.paper}>
-            <Typography>Filters:</Typography>
+            <Typography variant="h6">Filters:</Typography>
             <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Race
+              <Typography className={classes.heading}>Race</Typography>
             </FormLabel>
             <FormGroup>
               <FormControlLabel
@@ -201,7 +206,7 @@ export default function County(props) {
               />
             </FormGroup>
             <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Sex
+              <Typography className={classes.heading}>Sex</Typography>
             </FormLabel>
             <FormGroup>
               <FormControlLabel
@@ -217,7 +222,9 @@ export default function County(props) {
             {isAllDetainees ? (
               <span>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Detention Type
+                  <Typography className={classes.heading}>
+                    Detention Type
+                  </Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -262,7 +269,7 @@ export default function County(props) {
               ""
             )}
             <FormLabel component="legend" style={{ "text-align": "left" }}>
-              Age
+              <Typography className={classes.heading}>Age</Typography>
             </FormLabel>
             <FormGroup>
               <FormControlLabel
@@ -298,7 +305,7 @@ export default function County(props) {
             ) : (
               <span>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Charge Type
+                <Typography className={classes.heading}>Charge Type</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -311,7 +318,7 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Bond Amount
+                <Typography className={classes.heading}>Bond Amount</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -336,7 +343,7 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Length of Stay
+                <Typography className={classes.heading}>Length of Stay</Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
