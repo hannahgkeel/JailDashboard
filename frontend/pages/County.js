@@ -4,7 +4,7 @@ import AllDetaineesGrid from "../components/AllDetaineesGrid";
 import PretrialDetaineesGrid from "../components/PretrialDetaineesGrid";
 import "../styles/Home.css";
 import "../styles/County.css";
-import { calculateAge } from "../GlobalVar";
+import { calculateAge, calcLenOfStay } from "../GlobalVar";
 import {
   Paper,
   Grid,
@@ -39,6 +39,10 @@ export default function County(props) {
     sexFilters: new Set(),
     detentionTypeFilters: new Set(),
     ageFilters: new Set(),
+    chargeTypeFilters: new Set(),
+    bondAmountFilters: new Set(),
+    lenOfStayFilters: new Set(),
+    probationViolationFilters: new Set(),
   });
 
   // Get county data from database by countyId
@@ -103,7 +107,6 @@ export default function County(props) {
     };
 
     let [rangeStart, rangeEnd] = rangeDict[range];
-    console.log("rangeStart: " + rangeStart + " ,rangeEnd: " + rangeEnd);
 
     let set = new Set(state.ageFilters);
 
@@ -114,13 +117,128 @@ export default function County(props) {
     setState({ ...state, ageFilters: set });
   }
 
+  function handleChargeTypeFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const name = target.name;
+
+    let set = new Set(state.chargeTypeFilters);
+
+    checked ? set.add(name) : set.delete(name);
+
+    setState({ ...state, chargeTypeFilters: set });
+  }
+
+  function handleBondAmountFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const range = target.name;
+
+    const rangeDict = {
+      range1: {
+        start: 0,
+        end: 499,
+      },
+      range2: {
+        start: 500,
+        end: 2499,
+      },
+      range3: {
+        start: 2500,
+        end: 9999,
+      },
+      range4: {
+        start: 10000,
+        end: 99999,
+      },
+      range5: {
+        start: 1000000,
+        end: Number.MAX_SAFE_INTEGER,
+      },
+    };
+
+    let set = new Set(state.bondAmountFilters);
+
+    if (checked) {
+      set.add(rangeDict[range]);
+    } else {
+      let start = rangeDict[range].start;
+      let setArr = [...set].filter((range) => range.start !== start);
+      set = new Set(setArr);
+    }
+
+    setState({ ...state, bondAmountFilters: set });
+  }
+
+  function handleLenOfStayFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const range = target.name;
+
+    const rangeDict = {
+      range1: [0, 0],
+      range2: [1, 3],
+      range3: [4, 29],
+      range4: [30, 364],
+      range5: [365, 36500],
+    };
+
+    let [rangeStart, rangeEnd] = rangeDict[range];
+
+    let set = new Set(state.lenOfStayFilters);
+
+    for (let i = rangeStart; i <= rangeEnd; i++) {
+      checked ? set.add(i) : set.delete(i);
+    }
+
+    setState({ ...state, lenOfStayFilters: set });
+  }
+
+  function handleProbationViolationFilter(event) {
+    const target = event.target;
+    const checked = target.checked;
+    const name = target.name;
+
+    let set = new Set(state.probationViolationFilters);
+
+    checked ? set.add(name) : set.delete(name);
+
+    setState({ ...state, probationViolationFilters: set });
+  }
+
+  // Helper function for filterData
+  function isInRange(filters, val) {
+    let flag = false;
+
+    filters.forEach((range) => {
+      if (val >= range.start && val <= range.end) {
+        console.log("TRUE");
+        flag = true;
+      }
+    });
+    return flag;
+  }
+
   // filterData: returns a new data set according to selected filters
   function filterData() {
-    const { raceFilters, sexFilters, detentionTypeFilters, ageFilters } = state;
+    const {
+      raceFilters,
+      sexFilters,
+      detentionTypeFilters,
+      ageFilters,
+      chargeTypeFilters,
+      bondAmountFilters,
+      lenOfStayFilters,
+      probationViolationFilters,
+    } = state;
     let rf = new Set(raceFilters);
     let sf = new Set(sexFilters);
     let df = new Set(detentionTypeFilters);
     let af = new Set(ageFilters);
+    let ctf = new Set(chargeTypeFilters);
+    let baf = new Set(bondAmountFilters);
+    let losf = new Set(lenOfStayFilters);
+    let pvf = new Set(probationViolationFilters);
 
     // If a set of filters is empty, all should be included
     if (rf.size === 0) rf.add("White").add("Black").add("Other");
@@ -128,6 +246,17 @@ export default function County(props) {
     if (df.size === 0)
       df.add("Pretrial").add("Sentenced").add("Federal").add("Other");
     if (af.size === 0) for (let i = 0; i < MAX_AGE; i++) af.add(i);
+    if (ctf.size === 0) ctf.add("Misdemeanor").add("Felony");
+    if (baf.size === 0) {
+      baf
+        .add({ start: 0, end: 499 })
+        .add({ start: 500, end: 2499 })
+        .add({ start: 2500, end: 9999 })
+        .add({ start: 10000, end: 99999 })
+        .add({ start: 100000, end: Number.MAX_SAFE_INTEGER });
+    }
+    if (losf.size === 0) for (let i = 0; i < 36500; i++) losf.add(i);
+    if (pvf.size === 0) pvf.add("Probation violation").add("Other");
 
     let changedData = [];
 
@@ -136,7 +265,11 @@ export default function County(props) {
         rf.has(entry.race) &&
         sf.has(entry.sex) &&
         df.has(entry.status) &&
-        af.has(calculateAge(entry.dob))
+        af.has(calculateAge(entry.dob)) &&
+        ctf.has(entry.felony_misdemeanor) &&
+        isInRange(baf, entry.bond_amount) &&
+        losf.has(calcLenOfStay(entry.book_date, entry.release_date)) &&
+        pvf.has(entry.charge)
       ) {
         console.log("Entry:" + entry);
         changedData.push(entry);
@@ -302,11 +435,21 @@ export default function County(props) {
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox name="Felony" />}
+                    control={
+                      <Checkbox
+                        onChange={handleChargeTypeFilter}
+                        name="Felony"
+                      />
+                    }
                     label="Felony"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="Misdemeanor" />}
+                    control={
+                      <Checkbox
+                        onChange={handleChargeTypeFilter}
+                        name="Misdemeanor"
+                      />
+                    }
                     label="Misdemeanor"
                   />
                 </FormGroup>
@@ -315,23 +458,48 @@ export default function County(props) {
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox name="range1" />}
+                    control={
+                      <Checkbox
+                        onChange={handleBondAmountFilter}
+                        name="range1"
+                      />
+                    }
                     label="Less than $500"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range2" />}
+                    control={
+                      <Checkbox
+                        onChange={handleBondAmountFilter}
+                        name="range2"
+                      />
+                    }
                     label="$500 to $2,499"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range3" />}
+                    control={
+                      <Checkbox
+                        onChange={handleBondAmountFilter}
+                        name="range3"
+                      />
+                    }
                     label="$2,500 to $9,999"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range4" />}
+                    control={
+                      <Checkbox
+                        onChange={handleBondAmountFilter}
+                        name="range4"
+                      />
+                    }
                     label="$10,000 to 99,999"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range4" />}
+                    control={
+                      <Checkbox
+                        onChange={handleBondAmountFilter}
+                        name="range5"
+                      />
+                    }
                     label="$100,000+"
                   />
                 </FormGroup>
@@ -340,24 +508,61 @@ export default function County(props) {
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox name="range1" />}
+                    control={
+                      <Checkbox
+                        onChange={handleLenOfStayFilter}
+                        name="range1"
+                      />
+                    }
                     label="Less than 1 day"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range2" />}
+                    control={
+                      <Checkbox
+                        onChange={handleLenOfStayFilter}
+                        name="range2"
+                      />
+                    }
                     label="1-3 days"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range3" />}
+                    control={
+                      <Checkbox
+                        onChange={handleLenOfStayFilter}
+                        name="range3"
+                      />
+                    }
                     label="4-29 days"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range4" />}
+                    control={
+                      <Checkbox
+                        onChange={handleLenOfStayFilter}
+                        name="range4"
+                      />
+                    }
                     label="30-364 days"
                   />
                   <FormControlLabel
-                    control={<Checkbox name="range5" />}
+                    control={
+                      <Checkbox
+                        onChange={handleLenOfStayFilter}
+                        name="range5"
+                      />
+                    }
                     label="365+ days"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <input
+                    name="Probation violation"
+                    onChange={handleProbationViolationFilter}
+                    type="checkbox"
+                  />
+                  <input
+                    name="Other"
+                    onChange={handleProbationViolationFilter}
+                    type="checkbox"
                   />
                 </FormGroup>
               </span>

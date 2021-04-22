@@ -15,12 +15,14 @@ function BondAmountGraph(props) {
     };
 
     data.forEach((entry) => {
-      let ba = entry.bond_amount;
-      if (ba < 500) dict["range1"] += 1;
-      else if (ba < 2500) dict["range2"] += 1;
-      else if (ba < 10000) dict["range3"] += 1;
-      else if (ba < 100000) dict["range4"] += 1;
-      else dict["range5"] += 1;
+      if (entry.bond_type !== "No bond") {
+        let ba = entry.bond_amount;
+        if (ba < 500) dict["range1"] += 1;
+        else if (ba < 2500) dict["range2"] += 1;
+        else if (ba < 10000) dict["range3"] += 1;
+        else if (ba < 100000) dict["range4"] += 1;
+        else dict["range5"] += 1;
+      }
     });
 
     const bondAmountData = {

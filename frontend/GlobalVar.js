@@ -19,4 +19,12 @@ export function calculateAge(dobString) {
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
+export function calcLenOfStay(book_date, release_date) {
+  let bd = new Date(book_date.substring(0, book_date.indexOf("T")));
+  let rd = new Date(release_date.substring(0, release_date.indexOf("T")));
+  let milliseconds = rd.getTime() - bd.getTime();
+
+  return Math.ceil(milliseconds / (1000 * 60 * 60 * 24));
+}
+
 export default colorscheme;

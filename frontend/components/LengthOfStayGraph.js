@@ -2,18 +2,6 @@ import React from "react";
 import Bar from "./Bar";
 import colorscheme from "../GlobalVar.js";
 
-let data = {
-  labels: ["0", "1-3", "4-29", "30-364", "365+"],
-  datasets: [
-    {
-      data: [8, 30, 26, 11, 8, 4],
-      backgroundColor: colorscheme,
-      borderColor: colorscheme,
-      borderWidth: 1,
-    },
-  ],
-};
-
 function LengthOfStayGraph(props) {
   const data = props.data;
 
