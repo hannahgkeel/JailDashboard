@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function County(props) {
   const classes = useStyles();
   let isAllDetainees = props.location.state.all;
+  let countyName = props.location.state.county.name;
 
   // Initialize filters in state
   const [state, setState] = useState({
@@ -275,8 +276,28 @@ export default function County(props) {
         changedData.push(entry);
       }
     });
-
     return changedData;
+  }
+
+  function getPopulation(data) {
+    let uniqueBookId = new Set();
+    data.forEach((entry) => {
+      let bookId = entry.book_id;
+      if (!uniqueBookId.has(bookId)) uniqueBookId.add(bookId);
+    });
+
+    return uniqueBookId.size;
+  }
+
+  function getPretrialPopulation(data) {
+    let uniqueBookId = new Set();
+    data.forEach((entry) => {
+      let bookId = entry.book_id;
+      if (!uniqueBookId.has(bookId) && entry.status === "Pretrial")
+        uniqueBookId.add(bookId);
+    });
+
+    return uniqueBookId.size;
   }
 
   return (
@@ -289,7 +310,7 @@ export default function County(props) {
             </span>
           </Typography>
           <Typography variant="subtitle2">
-            <span>{props.location.state.county.name} County</span>
+            <span>{countyName} County</span>
           </Typography>
         </h2>
       </div>
@@ -297,11 +318,15 @@ export default function County(props) {
         <Grid item xs={12}>
           <Paper>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
-              There are currently XYZ {isAllDetainees ? "" : "pretrial"}{" "}
-              detainees in Orange County.
+              There are currently{" "}
+              {isAllDetainees
+                ? getPopulation(data)
+                : getPretrialPopulation(data)}{" "}
+              {isAllDetainees ? "" : "pretrial"} detainees in {countyName}{" "}
+              County.
             </Typography>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
-              This data was last updated on 00/00/2021
+              This data was last updated on 04/01/2021
             </Typography>
           </Paper>
         </Grid>
@@ -553,16 +578,28 @@ export default function County(props) {
                     label="365+ days"
                   />
                 </FormGroup>
+                <FormLabel component="legend" style={{ "text-align": "left" }}>
+                  Probation violation?
+                </FormLabel>
                 <FormGroup>
-                  <input
-                    name="Probation violation"
-                    onChange={handleProbationViolationFilter}
-                    type="checkbox"
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleProbationViolationFilter}
+                        name="Probation violation"
+                      />
+                    }
+                    label="Yes"
                   />
-                  <input
-                    name="Other"
-                    onChange={handleProbationViolationFilter}
-                    type="checkbox"
+
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={handleProbationViolationFilter}
+                        name="Other"
+                      />
+                    }
+                    label="No"
                   />
                 </FormGroup>
               </span>
