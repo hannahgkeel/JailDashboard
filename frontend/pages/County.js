@@ -463,7 +463,9 @@ export default function County(props) {
             ) : (
               <span>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                <Typography className={classes.heading}>Charge Type</Typography>
+                  <Typography className={classes.heading}>
+                    Charge Type
+                  </Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -486,7 +488,9 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                <Typography className={classes.heading}>Bond Amount</Typography>
+                  <Typography className={classes.heading}>
+                    Bond Amount
+                  </Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -536,7 +540,9 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                <Typography className={classes.heading}>Length of Stay</Typography>
+                  <Typography className={classes.heading}>
+                    Length of Stay
+                  </Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
@@ -586,7 +592,9 @@ export default function County(props) {
                   />
                 </FormGroup>
                 <FormLabel component="legend" style={{ "text-align": "left" }}>
-                  Probation violation?
+                  <Typography className={classes.heading}>
+                    Probation Violation
+                  </Typography>
                 </FormLabel>
                 <FormGroup>
                   <FormControlLabel
