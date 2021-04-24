@@ -26,7 +26,6 @@ function BondAmountGraph(props) {
       } else {
         dict["no_bond"] += 1;
       }
-      
     });
 
     const bondAmountData = {
@@ -58,7 +57,13 @@ function BondAmountGraph(props) {
     return bondAmountData;
   }
 
-  return <Bar data={formatData(data)} indexAxis="x" title="Bond Amount / Release Not Authorized" />;
+  return (
+    <Bar
+      data={formatData(data)}
+      indexAxis="x"
+      title="Bond Amount / Release Not Authorized"
+    />
+  );
 }
 
 export default BondAmountGraph;

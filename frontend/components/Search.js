@@ -7,8 +7,8 @@ import {
   Typography,
   Button,
   TextField,
-  FormGroup,
-  Checkbox,
+  RadioGroup,
+  Radio,
   FormControlLabel,
 } from "@material-ui/core";
 
@@ -39,8 +39,8 @@ export default function Search() {
     setState({ ...state, county: value });
   };
 
-  const handleCheckboxChange = (event) => {
-    if (event.target.name === "all") {
+  const handleRadioBtnChange = (event) => {
+    if (event.target.value === "all") {
       setState({ ...state, all: true, pretrial: false });
     } else {
       setState({ ...state, all: false, pretrial: true });
@@ -71,28 +71,22 @@ export default function Search() {
               <TextField {...params} label="Select" variant="outlined" />
             )}
           />
-          <FormGroup>
+          <RadioGroup
+            aria-label="detainee-type"
+            name="detainee-type"
+            onChange={handleRadioBtnChange}
+          >
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.all}
-                  onChange={handleCheckboxChange}
-                  name="all"
-                />
-              }
+              value="all"
+              control={<Radio />}
               label="All Detainees"
             />
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.pretrial}
-                  onChange={handleCheckboxChange}
-                  name="pretrial"
-                />
-              }
+              value="pretrial"
+              control={<Radio />}
               label="Pretrial Detainees"
             />
-          </FormGroup>
+          </RadioGroup>
           <Button
             type="submit"
             variant="contained"
