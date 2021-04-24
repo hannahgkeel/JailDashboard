@@ -284,7 +284,7 @@ export default function County(props) {
         df.has(entry.status) &&
         af.has(calculateAge(entry.dob)) &&
         ctf.has(entry.felony_misdemeanor) &&
-        (isInRange(baf, entry.bond_amount)) &&
+        isInRange(baf, entry.bond_amount) &&
         losf.has(calcLenOfStay(entry.book_date, entry.release_date)) &&
         pvf.has(entry.charge)
       ) {
@@ -359,7 +359,7 @@ export default function County(props) {
               <Button onClick={handleOverallButton}>Overall</Button>
             </ButtonGroup>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
-              There are {" "}
+              There are{" "}
               {isAllDetainees
                 ? getPopulation(data)
                 : getPretrialPopulation(data)}{" "}

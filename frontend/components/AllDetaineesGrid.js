@@ -7,7 +7,7 @@ import { Paper, Grid } from "@material-ui/core";
 
 function AllDetaineesGrid(props) {
   let data = props.data;
-  
+
   return (
     <Grid container item spacing={2} xs={12} sm={9}>
       <Grid item xs={6}>
