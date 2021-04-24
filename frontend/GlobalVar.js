@@ -20,6 +20,9 @@ export function calculateAge(dobString) {
 }
 
 export function calcLenOfStay(book_date, release_date) {
+  // This assumes that a unreleased detainee has a release date of 'NOT_RELEASED'.
+  if (release_date === 'NOT_RELEASED') release_date = Date.now();
+  
   let bd = new Date(book_date.substring(0, book_date.indexOf("T")));
   let rd = new Date(release_date.substring(0, release_date.indexOf("T")));
   let milliseconds = rd.getTime() - bd.getTime();

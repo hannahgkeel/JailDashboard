@@ -7,6 +7,7 @@ function BondAmountGraph(props) {
 
   function formatData(data) {
     let dict = {
+      no_bond: 0,
       range1: 0,
       range2: 0,
       range3: 0,
@@ -22,7 +23,10 @@ function BondAmountGraph(props) {
         else if (ba < 10000) dict["range3"] += 1;
         else if (ba < 100000) dict["range4"] += 1;
         else dict["range5"] += 1;
+      } else {
+        dict["no_bond"] += 1;
       }
+      
     });
 
     const bondAmountData = {
@@ -32,6 +36,7 @@ function BondAmountGraph(props) {
         "$2,500-9,999",
         "$10,000-99,999",
         "$100,000+",
+        "No Bond",
       ],
       datasets: [
         {
@@ -42,6 +47,7 @@ function BondAmountGraph(props) {
             dict["range3"],
             dict["range4"],
             dict["range5"],
+            dict["no_bond"],
           ],
           backgroundColor: colorscheme,
           borderColor: colorscheme,
@@ -52,7 +58,7 @@ function BondAmountGraph(props) {
     return bondAmountData;
   }
 
-  return <Bar data={formatData(data)} indexAxis="x" title="Bond Amount" />;
+  return <Bar data={formatData(data)} indexAxis="x" title="Bond Amount / Release Not Authorized" />;
 }
 
 export default BondAmountGraph;

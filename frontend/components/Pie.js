@@ -78,6 +78,7 @@ class Pie extends Component {
         plugins: {
           legend: {
             position: "top",
+            onClick: null,
           },
           title: {
             display: true,

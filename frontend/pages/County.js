@@ -14,9 +14,9 @@ import {
   FormGroup,
   Checkbox,
   FormLabel,
+  ButtonGroup,
+  Button,
 } from "@material-ui/core";
-
-const MAX_AGE = 110;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,13 +49,22 @@ export default function County(props) {
     bondAmountFilters: new Set(),
     lenOfStayFilters: new Set(),
     probationViolationFilters: new Set(),
+    noBondFilter: false,
   });
 
   // Get county data from database by countyId
   useEffect(() => {
     let countyId = props.location.state.county.county_id;
     axios.get(`/county/${countyId}`).then((res) => {
-      setData(res.data);
+      let uniqueBookId = new Set();
+      let uniqueData = [];
+      res.data.forEach((entry) => {
+        if (!uniqueBookId.has(entry.book_id)) {
+          uniqueBookId.add(entry.book_id);
+          uniqueData.push(entry);
+        }
+      });
+      setData(uniqueData);
     });
   }, [data]);
 
@@ -109,7 +118,7 @@ export default function County(props) {
       range3: [28, 37],
       range4: [38, 45],
       range5: [46, 55],
-      range6: [56, MAX_AGE],
+      range6: [56, 110],
     };
 
     let [rangeStart, rangeEnd] = rangeDict[range];
@@ -236,6 +245,7 @@ export default function County(props) {
       bondAmountFilters,
       lenOfStayFilters,
       probationViolationFilters,
+      noBondFilter,
     } = state;
     let rf = new Set(raceFilters);
     let sf = new Set(sexFilters);
@@ -245,13 +255,14 @@ export default function County(props) {
     let baf = new Set(bondAmountFilters);
     let losf = new Set(lenOfStayFilters);
     let pvf = new Set(probationViolationFilters);
+    let nbf = noBondFilter;
 
     // If a set of filters is empty, all should be included
     if (rf.size === 0) rf.add("White").add("Black").add("Other");
     if (sf.size === 0) sf.add("Male").add("Female");
     if (df.size === 0)
       df.add("Pretrial").add("Sentenced").add("Federal").add("Other");
-    if (af.size === 0) for (let i = 0; i < MAX_AGE; i++) af.add(i);
+    if (af.size === 0) for (let i = 0; i < 110; i++) af.add(i);
     if (ctf.size === 0) ctf.add("Misdemeanor").add("Felony");
     if (baf.size === 0) {
       baf
@@ -273,7 +284,7 @@ export default function County(props) {
         df.has(entry.status) &&
         af.has(calculateAge(entry.dob)) &&
         ctf.has(entry.felony_misdemeanor) &&
-        isInRange(baf, entry.bond_amount) &&
+        (isInRange(baf, entry.bond_amount)) &&
         losf.has(calcLenOfStay(entry.book_date, entry.release_date)) &&
         pvf.has(entry.charge)
       ) {
@@ -305,6 +316,27 @@ export default function County(props) {
     return uniqueBookId.size;
   }
 
+  function handleCurrentButton(event) {
+    event.preventDefault();
+    setData([]);
+  }
+
+  function handleOverallButton(event) {
+    event.preventDefault();
+    let countyId = props.location.state.county.county_id;
+    axios.get(`/county/${countyId}`).then((res) => {
+      let uniqueBookId = new Set();
+      let uniqueData = [];
+      res.data.forEach((entry) => {
+        if (!uniqueBookId.has(entry.book_id)) {
+          uniqueBookId.add(entry.book_id);
+          uniqueData.push(entry);
+        }
+      });
+      setData(uniqueData);
+    });
+  }
+
   return (
     <div className="home pure-u-1">
       <div className="home-header pure-g">
@@ -322,8 +354,12 @@ export default function County(props) {
       <Grid id="Grid" container spacing={2} direction="row">
         <Grid item xs={12}>
           <Paper>
+            <ButtonGroup disableElevation variant="contained" color="primary">
+              <Button onClick={handleCurrentButton}>Current</Button>
+              <Button onClick={handleOverallButton}>Overall</Button>
+            </ButtonGroup>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
-              There are currently{" "}
+              There are {" "}
               {isAllDetainees
                 ? getPopulation(data)
                 : getPretrialPopulation(data)}{" "}
