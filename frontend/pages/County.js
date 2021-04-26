@@ -64,6 +64,8 @@ export default function County(props) {
           uniqueData.push(entry);
         }
       });
+      console.log("useEffect:" + uniqueData);
+      console.log(JSON.stringify(uniqueData[0]));
       setData(uniqueData);
     });
   }, [data]);
@@ -367,7 +369,8 @@ export default function County(props) {
               County.
             </Typography>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
-              This data was last updated on 04/01/2021
+              This data was last updated on{" "}
+              {new Date(props.location.state.county.updatedat).toDateString()}
             </Typography>
           </Paper>
         </Grid>

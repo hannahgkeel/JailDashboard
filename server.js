@@ -2,15 +2,25 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+const { json } = require("express");
 const express = require("express");
 const path = require("path");
-const { Sequelize, Model, DataTypes } = require("sequelize");
-const cors = require("cors");
+const postgres = require("postgres");
+//const { Sequelize, Model, DataTypes } = require("sequelize");
 
 const app = express();
-app.use(cors());
 const port = process.env.PORT || 5000;
 
+const sql = postgres(
+  "postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn",
+  {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  }
+);
+
+/*
 const sequelize = new Sequelize({
   database: process.env.APP_DB,
   username: process.env.APP_USER,
@@ -34,6 +44,7 @@ sequelize
   .then(() => console.log("Connection has been established successfully."))
   .catch((e) => console.error("Unable to connect to the database:", e));
 
+  
 const CountyName = sequelize.define("CountyName", {
   county_id: {
     type: DataTypes.INTEGER,
@@ -45,7 +56,7 @@ const CountyName = sequelize.define("CountyName", {
   },
 });
 
-const County = sequelize.define("County", {
+const County = sequelize.define("county", {
   county_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -102,31 +113,54 @@ const County = sequelize.define("County", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-});
+}, { freezeTableName: true });
 
 sequelize.sync().then(() => console.log("Database synced successfully."));
-
+*/
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
+  /*
   County.findAll({
     where: {
       county_id: req.params.countyId,
     },
   }).then((entries) => res.json(entries));
+  */
+  sql`SELECT * FROM county WHERE county_id=${req.params.countyId}`.then(
+    (entries) => {
+      delete entries.count;
+      delete entries.command;
+      res.json(entries);
+    }
+  );
 });
 
 app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
+  /*
   County.findAll({
     where: {
       county_id: req.params.countyId,
       status: "Pretrial",
     },
   }).then((entries) => res.json(entries));
+  */
+  sql`SELECT * FROM county WHERE county_id=${req.params.countyId} AND status=Pretrial`.then(
+    (entries) => {
+      delete entries.count;
+      delete entries.command;
+      res.json(entries);
+    }
+  );
 });
 
 app.get("/county_names", (req, res) => {
-  CountyName.findAll().then((entries) => res.json(entries));
+  //CountyName.findAll().then((entries) => res.json(entries));
+  sql`SELECT * FROM county_names;`.then((entries) => {
+    delete entries.count;
+    delete entries.command;
+    res.json(entries);
+  });
 });
 
 // This route must be listed last otherwise react router breaks

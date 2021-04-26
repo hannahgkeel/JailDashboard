@@ -68,7 +68,12 @@ export default function Search() {
             style={{ width: 300 }}
             onChange={handleChange}
             renderInput={(params) => (
-              <TextField {...params} label="Select" variant="outlined" required/>
+              <TextField
+                {...params}
+                label="Select"
+                variant="outlined"
+                required
+              />
             )}
           />
           <RadioGroup
@@ -78,12 +83,12 @@ export default function Search() {
           >
             <FormControlLabel
               value="all"
-              control={<Radio required={true}/>}
+              control={<Radio required={true} />}
               label="All Detainees"
             />
             <FormControlLabel
               value="pretrial"
-              control={<Radio required={true}/>}
+              control={<Radio required={true} />}
               label="Pretrial Detainees"
             />
           </RadioGroup>
