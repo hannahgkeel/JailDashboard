@@ -149,6 +149,11 @@ app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
 
 app.get("/county_names", (req, res) => {
   //CountyName.findAll().then((entries) => res.json(entries));
+  sql`SELECT * FROM county_names;`.then((entries) => {
+    delete entries.count;
+    delete entries.command;
+    res.json(entries);
+  });
 });
 
 // This route must be listed last otherwise react router breaks
