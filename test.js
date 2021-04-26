@@ -89,10 +89,11 @@ sql`CREATE TABLE IF NOT EXISTS county (id serial primary key, county_id integer,
 
 const XLSX = require("xlsx");
 //const { getJsDateFromExcel } = require("excel-date-to-js");
-const data = XLSX.readFile("data.xlsx", { cellDates: true });
+const data = XLSX.readFile("data-2.xlsx", { cellDates: true });
 const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
 
 for (let i = 0; i < json_data.length; i++) {
+  /*
   let entry = json_data[i];
   let e_arg_charg = countyData.get("0arr_chrg" + entry.arr_chrg)
     ? countyData.get("0arr_chrg" + entry.arr_chrg)
@@ -115,15 +116,27 @@ for (let i = 0; i < json_data.length; i++) {
     ? countyData.get("0jdstatus" + entry.jdstatus)
     : "Other";
   let e_bondamount = entry.bondamt;
+  */
+     let e_arg_charg = (countyData.get("1CHARGE" + entry.CHARGE) ? countyData.get("1CHARGE" + entry.CHARGE) : "Other");
+    let e_fel_misd = (countyData.get("1FEL_MISD" + entry.FEL_MISD) ? countyData.get("1FEL_MISD" + entry.FEL_MISD) : "Other");
+    let e_race = countyData.get("1RACE" + entry.RACE.trim()) ? countyData.get("1RACE" + entry.RACE.trim()) : "Other";
+    let e_sex = countyData.get("1SEX" + entry.SEX.trim())
+    let e_dob = entry.DOB;
+    let e_name_id = entry.NAME_ID;
+    let e_book_id = entry.BOOK_ID;
+    let e_bookdate = new Date(entry["BOOK.DATE"]);
+    let e_releasedate = new Date(entry.RELEASE_DATE);
+    let e_docket_id = entry.docket_id;
+    let e_bondtype = (countyData.get("1BOND_TYPE" + entry.BOND_TYPE) ? countyData.get("1BOND_TYPE" + entry.BOND_TYPE) : "Other");
+    let e_jdstatus = (countyData.get("1STATUS" + entry.STATUS) ? countyData.get("1STATUS" + entry.STATUS) : "Other");
+    let e_bondamount = entry["BOND($)"];
   let upload_date = new Date();
   //console.log(`${e_arg_charg}, ${e_fel_misd}, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_releasedate}, ${e_docket_id}, ${e_bondtype}, ${e_jdstatus}, ${e_bondamount}`)
-  sql`INSERT INTO county (county_id, sex, race, dob, name_id, book_id, book_date, docket_id, status, release_date, bond_type, bond_amount, charge, felony_misdemeanor, createdAt, updatedAt) VALUES (0, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_docket_id}, ${e_jdstatus}, ${e_releasedate}, ${e_bondtype}, ${e_bondamount}, ${e_arg_charg}, ${e_fel_misd}, ${upload_date}, ${upload_date});`.then();
+  sql`INSERT INTO county (county_id, sex, race, dob, name_id, book_id, book_date, docket_id, status, release_date, bond_type, bond_amount, charge, felony_misdemeanor, createdAt, updatedAt) VALUES (1, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_docket_id}, ${e_jdstatus}, ${e_releasedate}, ${e_bondtype}, ${e_bondamount}, ${e_arg_charg}, ${e_fel_misd}, ${upload_date}, ${upload_date});`.then();
 }
 
 async function get() {
-  let json = await sql`SELECT * FROM county LIMIT 10`;
-  delete json.count;
-  delete json.command;
+  let json = await sql`SELECT * FROM county;`;
   console.log(json);
 }
 
