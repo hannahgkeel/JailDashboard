@@ -93,8 +93,8 @@ const data = XLSX.readFile("data-2.xlsx", { cellDates: true });
 const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
 
 for (let i = 0; i < json_data.length; i++) {
-  /*
   let entry = json_data[i];
+  /*
   let e_arg_charg = countyData.get("0arr_chrg" + entry.arr_chrg)
     ? countyData.get("0arr_chrg" + entry.arr_chrg)
     : "Other";
