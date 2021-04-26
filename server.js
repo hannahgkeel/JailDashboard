@@ -140,7 +140,7 @@ app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
     },
   }).then((entries) => res.json(entries));
   */
-  sql`SELECT * FROM county WHERE county_id=${req.params.countyId} AND status=Pretrial`.then((entries) => {
+  sql`SELECT * FROM county WHERE county_id=${req.params.countyId} AND status='Pretrial'`.then((entries) => {
     delete entries.count;
     delete entries.command;
     res.json(entries);
