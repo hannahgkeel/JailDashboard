@@ -101,10 +101,6 @@ const County = sequelize.define("county", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  upload_date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  }
 }, { freezeTableName: true });
 
 sequelize.sync().then(() => console.log("Database synced successfully."));
