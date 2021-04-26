@@ -85,7 +85,7 @@ const countyData = new Map(
     })
 );
 //sql`DROP TABLE IF EXISTS county;`.then(() => console.log("dropped"));
-sql`CREATE TABLE IF NOT EXISTS county (id serial primary key, county_id integer, sex text, race text, dob date, name_id text, book_id text, book_date date, docket_id text, status text, release_date date, bond_type text, bond_amount money, charge text, felony_misdemeanor text, upload_date date);`.then(() => console.log("created"));
+sql`CREATE TABLE IF NOT EXISTS county (id serial primary key, county_id integer, sex text, race text, dob date, name_id text, book_id text, book_date date, docket_id text, status text, release_date date, bond_type text, bond_amount money, charge text, felony_misdemeanor text, createdAt date, updatedAt date);`.then(() => console.log("created"));
 
 const XLSX = require("xlsx");
 //const { getJsDateFromExcel } = require("excel-date-to-js");
@@ -117,7 +117,7 @@ for (let i = 0; i < json_data.length; i++) {
   let e_bondamount = entry.bondamt;
   let upload_date = new Date();
   //console.log(`${e_arg_charg}, ${e_fel_misd}, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_releasedate}, ${e_docket_id}, ${e_bondtype}, ${e_jdstatus}, ${e_bondamount}`)
-  sql`INSERT INTO county (county_id, sex, race, dob, name_id, book_id, book_date, docket_id, status, release_date, bond_type, bond_amount, charge, felony_misdemeanor, upload_date) VALUES (0, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_docket_id}, ${e_jdstatus}, ${e_releasedate}, ${e_bondtype}, ${e_bondamount}, ${e_arg_charg}, ${e_fel_misd}, ${upload_date});`.then();
+  sql`INSERT INTO county (county_id, sex, race, dob, name_id, book_id, book_date, docket_id, status, release_date, bond_type, bond_amount, charge, felony_misdemeanor, createdAt, updatedAt) VALUES (0, ${e_race}, ${e_sex}, ${e_dob}, ${e_name_id}, ${e_book_id}, ${e_bookdate}, ${e_docket_id}, ${e_jdstatus}, ${e_releasedate}, ${e_bondtype}, ${e_bondamount}, ${e_arg_charg}, ${e_fel_misd}, ${upload_date}, ${upload_date});`.then();
 }
 
 async function get() {
