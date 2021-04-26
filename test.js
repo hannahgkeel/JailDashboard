@@ -85,7 +85,7 @@ const countyData = new Map(
     })
 );
 //sql`DROP TABLE IF EXISTS county;`.then(() => console.log("dropped"));
-sql`CREATE TABLE IF NOT EXISTS county (county_id integer, sex text, race text, dob date, name_id text, book_id text, book_date date, docket_id text, status text, release_date date, bond_type text, bond_amount money, charge text, felony_misdemeanor text, upload_date date);`.then(() => console.log("created"));
+sql`CREATE TABLE IF NOT EXISTS county (id serial primary key, county_id integer, sex text, race text, dob date, name_id text, book_id text, book_date date, docket_id text, status text, release_date date, bond_type text, bond_amount money, charge text, felony_misdemeanor text, upload_date date);`.then(() => console.log("created"));
 
 const XLSX = require("xlsx");
 //const { getJsDateFromExcel } = require("excel-date-to-js");
