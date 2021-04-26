@@ -32,6 +32,7 @@ sequelize
   .then(() => console.log("Connection has been established successfully."))
   .catch((e) => console.error("Unable to connect to the database:", e));
 
+  
 const CountyName = sequelize.define("CountyName", {
   county_id: {
     type: DataTypes.INTEGER,
@@ -100,7 +101,7 @@ const County = sequelize.define("county", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-});
+}, { freezeTableName: true });
 
 sequelize.sync().then(() => console.log("Database synced successfully."));
 
