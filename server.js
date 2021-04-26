@@ -43,7 +43,7 @@ const CountyName = sequelize.define("CountyName", {
   },
 });
 
-const County = sequelize.define("County", {
+const County = sequelize.define("county", {
   county_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
