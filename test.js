@@ -1,7 +1,7 @@
 const ExcelJS = require("exceljs");
 const postgres = require("postgres");
 
-const sql = postgres();
+const sql = postgres("postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn");
 
 const countyData = new Map(
     Object.entries({
