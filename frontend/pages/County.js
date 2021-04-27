@@ -59,7 +59,7 @@ export default function County(props) {
   // Get county data from database by countyId
   useEffect(() => {
     let countyId = props.location.state.county.county_id;
-    axios.get(`/county/${countyId}`).then((res) => {
+    axios.get(`localhost:5000/county/${countyId}`).then((res) => {
       let uniqueBookId = new Set();
       let uniqueData = [];
       res.data.forEach((entry) => {
