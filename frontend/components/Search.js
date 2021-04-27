@@ -1,29 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../styles/Search.css";
-import TextField from "@material-ui/core/TextField";
+import axios from "axios";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { Typography, Button } from "@material-ui/core";
-import FormGroup from "@material-ui/core/FormGroup";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {
+  Typography,
+  Button,
+  TextField,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from "@material-ui/core";
 
 export default function Search() {
   let history = useHistory();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/county_names")
+      .then((res) => {
+        setCounties(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [counties]);
+
+  const [counties, setCounties] = useState([]);
+
   // Initialize state
   const [state, setState] = useState({
-    county: "",
+    county: {},
     all: false,
     pretrial: false,
   });
 
   const handleChange = (event, value) => {
-    setState({ ...state, county: value.name });
+    setState({ ...state, county: value });
   };
 
-  const handleCheckboxChange = (event) => {
-    if (event.target.name === "all") {
+  const handleRadioBtnChange = (event) => {
+    if (event.target.value === "all") {
       setState({ ...state, all: true, pretrial: false });
     } else {
       setState({ ...state, all: false, pretrial: true });
@@ -51,31 +68,30 @@ export default function Search() {
             style={{ width: 300 }}
             onChange={handleChange}
             renderInput={(params) => (
-              <TextField {...params} label="Select" variant="outlined" />
+              <TextField
+                {...params}
+                label="Select"
+                variant="outlined"
+                required
+              />
             )}
           />
-          <FormGroup>
+          <RadioGroup
+            aria-label="detainee-type"
+            name="detainee-type"
+            onChange={handleRadioBtnChange}
+          >
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.all}
-                  onChange={handleCheckboxChange}
-                  name="all"
-                />
-              }
+              value="all"
+              control={<Radio required={true} />}
               label="All Detainees"
             />
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={state.pretrial}
-                  onChange={handleCheckboxChange}
-                  name="pretrial"
-                />
-              }
+              value="pretrial"
+              control={<Radio required={true} />}
               label="Pretrial Detainees"
             />
-          </FormGroup>
+          </RadioGroup>
           <Button
             type="submit"
             variant="contained"
@@ -90,4 +106,4 @@ export default function Search() {
   );
 }
 
-const counties = [{ name: "Orange County" }, { name: "Forsyth County" }];
+// const counties = [{ name: "Orange County" }, { name: "Forsyth County" }];

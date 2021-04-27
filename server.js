@@ -11,11 +11,14 @@ const postgres = require("postgres");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const sql = postgres("postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn", {
-  ssl: {
-    rejectUnauthorized: false
+const sql = postgres(
+  "postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn",
+  {
+    ssl: {
+      rejectUnauthorized: false,
+    },
   }
-});
+);
 
 /*
 const sequelize = new Sequelize({
@@ -124,11 +127,13 @@ app.get("/county/:countyId([0-9]{1,3})", (req, res) => {
     },
   }).then((entries) => res.json(entries));
   */
-  sql`SELECT * FROM county WHERE county_id=${req.params.countyId}`.then((entries) => {
-    delete entries.count;
-    delete entries.command;
-    res.json(entries);
-  });
+  sql`SELECT * FROM county WHERE county_id=${req.params.countyId}`.then(
+    (entries) => {
+      delete entries.count;
+      delete entries.command;
+      res.json(entries);
+    }
+  );
 });
 
 app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
@@ -140,11 +145,13 @@ app.get("/pretrial/county/:countyId([0-9]{1,3})", (req, res) => {
     },
   }).then((entries) => res.json(entries));
   */
-  sql`SELECT * FROM county WHERE county_id=${req.params.countyId} AND status='Pretrial'`.then((entries) => {
-    delete entries.count;
-    delete entries.command;
-    res.json(entries);
-  });
+  sql`SELECT * FROM county WHERE county_id=${req.params.countyId} AND status=Pretrial`.then(
+    (entries) => {
+      delete entries.count;
+      delete entries.command;
+      res.json(entries);
+    }
+  );
 });
 
 app.get("/county_names", (req, res) => {
