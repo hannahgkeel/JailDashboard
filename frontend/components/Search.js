@@ -17,7 +17,7 @@ export default function Search() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/county_names")
+      .get("/county_names")
       .then((res) => {
         setCounties(res.data);
       })
