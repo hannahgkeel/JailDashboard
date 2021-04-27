@@ -16,7 +16,11 @@ import {
   FormLabel,
   ButtonGroup,
   Button,
+  RadioGroup,
+  Radio
 } from "@material-ui/core";
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -354,12 +358,30 @@ export default function County(props) {
         </h2>
       </div>
       <Grid id="Grid" container spacing={2} direction="row">
-        <Grid item xs={12}>
-          <Paper>
-            <ButtonGroup disableElevation variant="contained" color="primary">
-              <Button onClick={handleCurrentButton}>Current</Button>
-              <Button onClick={handleOverallButton}>Overall</Button>
-            </ButtonGroup>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>
+          <RadioGroup
+            aria-label="current or overall data"
+            name="current or overall data"
+            defaultValue="Overall"
+          >
+            <FormControlLabel
+              value="Current"
+              control={<Radio required={true} />}
+              label="Current"
+              onChange={handleCurrentButton}
+            />
+            <FormControlLabel
+              value="Overall"
+              control={<Radio required={true} />}
+              label="Overall"
+              onChange={handleOverallButton}
+            />
+          </RadioGroup>
+          </Paper>
+        </Grid>
+          <Grid item xs={9}>
+            <Paper className={classes.paper}>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
               There are{" "}
               {isAllDetainees
@@ -373,7 +395,7 @@ export default function County(props) {
               {new Date(props.location.state.county.updatedat).toDateString()}
             </Typography>
           </Paper>
-        </Grid>
+          </Grid>
         <Grid
           container
           item
