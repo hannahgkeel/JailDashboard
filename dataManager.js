@@ -23,10 +23,22 @@ const MAP_FILE = "excelColumnValues.json";
 function checkEntry(id, charge, fel_misd, race, sex, bond_type, status) {
   let map = openColumnMappingFile(MAP_FILE);
   map = checkValue(map, MAP_FILE, "charge", `${id}charge${charge}`, charge);
-  map = checkValue(map, MAP_FILE, "fel_misd", `${id}fel_misd${fel_misd}`, fel_misd);
+  map = checkValue(
+    map,
+    MAP_FILE,
+    "fel_misd",
+    `${id}fel_misd${fel_misd}`,
+    fel_misd
+  );
   map = checkValue(map, MAP_FILE, "race", `${id}race${race}`, race);
   map = checkValue(map, MAP_FILE, "sex", `${id}sex${sex}`, sex);
-  map = checkValue(map, MAP_FILE, "bond_type", `${id}bond_type${bond_type}`, bond_type);
+  map = checkValue(
+    map,
+    MAP_FILE,
+    "bond_type",
+    `${id}bond_type${bond_type}`,
+    bond_type
+  );
   map = checkValue(map, MAP_FILE, "status", `${id}status${status}`, status);
   return map;
 }
@@ -44,7 +56,9 @@ function checkValue(columnMap, mapFile, column, key, value) {
     }
   });
   console.log(`Note: Possible options were shown if any are available`);
-  console.log(`Enter value of ${value}? Note: hit enter if you want the value to be Other`);
+  console.log(
+    `Enter value of ${value}? Note: hit enter if you want the value to be Other`
+  );
   let mappedValue = prompt("");
   if (mappedValue === "") {
     mappedValue = "Other";
@@ -70,14 +84,10 @@ async function resetDatabase() {
 
 async function deleteDataFromFileName(filename) {
   const [beforeCount] = await sql`SELECT count(*) FROM county;`;
-  console.log(
-    `Number of rows in table before deleting: ${beforeCount.count}`
-  );
+  console.log(`Number of rows in table before deleting: ${beforeCount.count}`);
   await sql`DELETE FROM county WHERE filename=${filename}`;
   const [afterCount] = await sql`SELECT count(*) FROM county;`;
-  console.log(
-    `Number of rows in table after deleting: ${afterCount.count}`
-  );
+  console.log(`Number of rows in table after deleting: ${afterCount.count}`);
 }
 
 async function uploadFile(filename) {
@@ -105,7 +115,9 @@ async function uploadFile(filename) {
 
   console.log("What is the date of this data?");
   console.log("Example: If this data is through Dec 2019, input 12/31/2019");
-  console.log("Note: Please enter numerical values only such as 12 for December");
+  console.log(
+    "Note: Please enter numerical values only such as 12 for December"
+  );
   console.log("What is the month?");
   const uploadMonth = prompt("");
   console.log("What is the day?");
@@ -114,16 +126,44 @@ async function uploadFile(filename) {
   const uploadYear = prompt("");
   const upload_date = new Date();
   const updated_date = new Date();
-  upload_date.setFullYear(parseInt(uploadYear), parseInt(uploadMonth), parseInt(uploadDay));
+  upload_date.setFullYear(
+    parseInt(uploadYear),
+    parseInt(uploadMonth),
+    parseInt(uploadDay)
+  );
   const data = XLSX.readFile(filename, { cellDates: true });
   const json_data = XLSX.utils.sheet_to_json(data.Sheets[data.SheetNames[0]]);
-  if (json_data[0].charge === undefined || json_data[0].fel_misd === undefined || json_data[0].race === undefined || json_data[0].sex === undefined || json_data[0].dob === undefined || json_data[0].name_id === undefined || json_data[0].book_id === undefined || json_data[0].book_date === undefined || json_data[0].release_date === undefined || json_data[0].docket_id === undefined || json_data[0].bond_type === undefined || json_data[0].status === undefined || json_data[0].bond_amount === undefined) {
-    console.log(`Column names in file: ${filename} are not properly set. Please refer back to the documentation.`);
+  if (
+    json_data[0].charge === undefined ||
+    json_data[0].fel_misd === undefined ||
+    json_data[0].race === undefined ||
+    json_data[0].sex === undefined ||
+    json_data[0].dob === undefined ||
+    json_data[0].name_id === undefined ||
+    json_data[0].book_id === undefined ||
+    json_data[0].book_date === undefined ||
+    json_data[0].release_date === undefined ||
+    json_data[0].docket_id === undefined ||
+    json_data[0].bond_type === undefined ||
+    json_data[0].status === undefined ||
+    json_data[0].bond_amount === undefined
+  ) {
+    console.log(
+      `Column names in file: ${filename} are not properly set. Please refer back to the documentation.`
+    );
     return;
   }
   for (let i = 0; i < json_data.length; i++) {
     const entry = json_data[i];
-    const countyData = checkEntry(county_id, entry.charge.trim(), entry.fel_misd.trim(), entry.race.trim(), entry.sex.trim(), entry.bond_type.trim(), entry.status.trim());
+    const countyData = checkEntry(
+      county_id,
+      entry.charge.trim(),
+      entry.fel_misd.trim(),
+      entry.race.trim(),
+      entry.sex.trim(),
+      entry.bond_type.trim(),
+      entry.status.trim()
+    );
     const charge = countyData.get(`${county_id}charge` + entry.charge.trim());
     const fel_misd = countyData.get(
       `${county_id}fel_misd` + entry.fel_misd.trim()
@@ -176,7 +216,6 @@ if (arguments.resetDatabase) {
     console.log("Entries were not deleted");
   }
 } else if (arguments.removeDate) {
-
 }
 
 if (arguments.uploadFile) {
