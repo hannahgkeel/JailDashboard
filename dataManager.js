@@ -9,6 +9,13 @@ const postgres = require("postgres");
 const XLSX = require("xlsx");
 
 const sql = postgres();
+/*
+const sql = postgres("postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn", {
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+*/
 
 const arguments = yargs(hideBin(process.argv)).argv;
 const MAP_FILE = "excelColumnValues.json";
@@ -169,7 +176,7 @@ if (arguments.resetDatabase) {
     console.log("Entries were not deleted");
   }
 } else if (arguments.removeDate) {
-  
+
 }
 
 if (arguments.uploadFile) {
