@@ -17,10 +17,10 @@ import {
   ButtonGroup,
   Button,
   RadioGroup,
-  Radio
+  Radio,
 } from "@material-ui/core";
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -360,28 +360,28 @@ export default function County(props) {
       <Grid id="Grid" container spacing={2} direction="row">
         <Grid item xs={3}>
           <Paper className={classes.paper}>
-          <RadioGroup
-            aria-label="current or overall data"
-            name="current or overall data"
-            defaultValue="Overall"
-          >
-            <FormControlLabel
-              value="Current"
-              control={<Radio required={true} />}
-              label="Current"
-              onChange={handleCurrentButton}
-            />
-            <FormControlLabel
-              value="Overall"
-              control={<Radio required={true} />}
-              label="Overall"
-              onChange={handleOverallButton}
-            />
-          </RadioGroup>
+            <RadioGroup
+              aria-label="current or overall data"
+              name="current or overall data"
+              defaultValue="Overall"
+            >
+              <FormControlLabel
+                value="Current"
+                control={<Radio required={true} />}
+                label="Current"
+                onChange={handleCurrentButton}
+              />
+              <FormControlLabel
+                value="Overall"
+                control={<Radio required={true} />}
+                label="Overall"
+                onChange={handleOverallButton}
+              />
+            </RadioGroup>
           </Paper>
         </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
               There are{" "}
               {isAllDetainees
@@ -395,7 +395,7 @@ export default function County(props) {
               {new Date(props.location.state.county.updatedat).toDateString()}
             </Typography>
           </Paper>
-          </Grid>
+        </Grid>
         <Grid
           container
           item
