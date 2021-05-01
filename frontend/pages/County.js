@@ -14,13 +14,9 @@ import {
   FormGroup,
   Checkbox,
   FormLabel,
-  ButtonGroup,
-  Button,
   RadioGroup,
-  Radio
+  Radio,
 } from "@material-ui/core";
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +54,11 @@ export default function County(props) {
 
   // Get county data from database by countyId
   useEffect(() => {
+    // Get user's county selection
     let countyId = props.location.state.county.county_id;
+
     axios.get(`/county/${countyId}`).then((res) => {
+      // Only keeping entries with unique book IDs
       let uniqueBookId = new Set();
       let uniqueData = [];
       res.data.forEach((entry) => {
@@ -68,23 +67,34 @@ export default function County(props) {
           uniqueData.push(entry);
         }
       });
-      console.log("useEffect:" + uniqueData);
-      console.log(JSON.stringify(uniqueData[0]));
+
       setData(uniqueData);
     });
   }, [data]);
 
+  // If this is moved above useEffect the page will rerender infinitely.
   const [data, setData] = useState([]);
 
-  // Handle individual filters functions
+  /* 
+  FUNCTIONS TO HANDLE FILTER GROUPS:
+    handleRaceFilter
+    handleSexFilter
+    handleDetentionTypeFilter
+    handleAgeFilter
+    handleChargeTypeFilter
+    handleBondAmountFilter
+    handleLenOfStayFilter
+    handleProbationViolationFilter
+  */
+
   function handleRaceFilter(event) {
     const target = event.target;
     const checked = target.checked;
-    const name = target.name;
+    const race = target.name;
 
     let set = new Set(state.raceFilters);
 
-    checked ? set.add(name) : set.delete(name);
+    checked ? set.add(race) : set.delete(race);
 
     setState({ ...state, raceFilters: set });
   }
@@ -92,11 +102,11 @@ export default function County(props) {
   function handleSexFilter(event) {
     const target = event.target;
     const checked = target.checked;
-    const name = target.name;
+    const sex = target.name;
 
     let set = new Set(state.sexFilters);
 
-    checked ? set.add(name) : set.delete(name);
+    checked ? set.add(sex) : set.delete(sex);
 
     setState({ ...state, sexFilters: set });
   }
@@ -104,11 +114,11 @@ export default function County(props) {
   function handleDetentionTypeFilter(event) {
     const target = event.target;
     const checked = target.checked;
-    const name = target.name;
+    const detentionType = target.name;
 
     let set = new Set(state.detentionTypeFilters);
 
-    checked ? set.add(name) : set.delete(name);
+    checked ? set.add(detentionType) : set.delete(detentionType);
 
     setState({ ...state, detentionTypeFilters: set });
   }
@@ -116,6 +126,8 @@ export default function County(props) {
   function handleAgeFilter(event) {
     const target = event.target;
     const checked = target.checked;
+
+    // In the form: "range1", "range2", "range3", etc.
     const range = target.name;
 
     const rangeDict = {
@@ -131,6 +143,7 @@ export default function County(props) {
 
     let set = new Set(state.ageFilters);
 
+    // Add/Delete numbers in a range from the filter set
     for (let i = rangeStart; i <= rangeEnd; i++) {
       checked ? set.add(i) : set.delete(i);
     }
@@ -141,11 +154,11 @@ export default function County(props) {
   function handleChargeTypeFilter(event) {
     const target = event.target;
     const checked = target.checked;
-    const name = target.name;
+    const chargeType = target.name;
 
     let set = new Set(state.chargeTypeFilters);
 
-    checked ? set.add(name) : set.delete(name);
+    checked ? set.add(chargeType) : set.delete(chargeType);
 
     setState({ ...state, chargeTypeFilters: set });
   }
@@ -153,6 +166,8 @@ export default function County(props) {
   function handleBondAmountFilter(event) {
     const target = event.target;
     const checked = target.checked;
+
+    // In the form: "range1", "range2", "range3", etc.
     const range = target.name;
 
     const rangeDict = {
@@ -183,6 +198,7 @@ export default function County(props) {
     if (checked) {
       set.add(rangeDict[range]);
     } else {
+      // Remove the range from filter set
       let start = rangeDict[range].start;
       let setArr = [...set].filter((range) => range.start !== start);
       set = new Set(setArr);
@@ -194,6 +210,8 @@ export default function County(props) {
   function handleLenOfStayFilter(event) {
     const target = event.target;
     const checked = target.checked;
+
+    // In the form: "range1", "range2", "range3", etc.
     const range = target.name;
 
     const rangeDict = {
@@ -208,6 +226,7 @@ export default function County(props) {
 
     let set = new Set(state.lenOfStayFilters);
 
+    // Add/Delete numbers in a range from the filter set
     for (let i = rangeStart; i <= rangeEnd; i++) {
       checked ? set.add(i) : set.delete(i);
     }
@@ -218,16 +237,21 @@ export default function County(props) {
   function handleProbationViolationFilter(event) {
     const target = event.target;
     const checked = target.checked;
-    const name = target.name;
+    const probationViolation = target.name;
 
     let set = new Set(state.probationViolationFilters);
 
-    checked ? set.add(name) : set.delete(name);
+    checked ? set.add(probationViolation) : set.delete(probationViolation);
 
     setState({ ...state, probationViolationFilters: set });
   }
 
-  // Helper function for filterData
+  /**
+   * Determine if a value is between every range in a list of ranges
+   * @param {Object[]} filters - Each filter represents a range
+   * @param {Number} val
+   * @returns {Boolean}
+   */
   function isInRange(filters, val) {
     let flag = false;
 
@@ -240,8 +264,11 @@ export default function County(props) {
     return flag;
   }
 
-  // filterData: returns a new data set according to selected filters
+  /**
+   * @returns {Object[]} New entries to display based on the selected filters
+   */
   function filterData() {
+    // Copy filters into new sets so they can be altered if necessary
     const {
       raceFilters,
       sexFilters,
@@ -251,7 +278,6 @@ export default function County(props) {
       bondAmountFilters,
       lenOfStayFilters,
       probationViolationFilters,
-      noBondFilter,
     } = state;
     let rf = new Set(raceFilters);
     let sf = new Set(sexFilters);
@@ -261,9 +287,8 @@ export default function County(props) {
     let baf = new Set(bondAmountFilters);
     let losf = new Set(lenOfStayFilters);
     let pvf = new Set(probationViolationFilters);
-    let nbf = noBondFilter;
 
-    // If a set of filters is empty, all should be included
+    // If a set of filters is empty, it is as if all filters in the set are checked
     if (rf.size === 0) rf.add("White").add("Black").add("Other");
     if (sf.size === 0) sf.add("Male").add("Female");
     if (df.size === 0)
@@ -281,8 +306,10 @@ export default function County(props) {
     if (losf.size === 0) for (let i = 0; i < 36500; i++) losf.add(i);
     if (pvf.size === 0) pvf.add("Probation violation").add("Other");
 
+    // Declare a new list for the filtered data to be stored in
     let changedData = [];
 
+    // Apply filtering and push entries to changedData
     data.forEach((entry) => {
       if (
         rf.has(entry.race) &&
@@ -294,15 +321,22 @@ export default function County(props) {
         losf.has(calcLenOfStay(entry.book_date, entry.release_date)) &&
         pvf.has(entry.charge)
       ) {
-        console.log("Entry:" + entry);
+        // Entry has passed all filter checks
         changedData.push(entry);
       }
     });
+
     return changedData;
   }
 
+  /**
+   * Calculates jail population count for All Detainees
+   * @param {Object[]} data - Entire jail data set
+   * @returns {Number} Population count
+   */
   function getPopulation(data) {
     let uniqueBookId = new Set();
+
     data.forEach((entry) => {
       let bookId = entry.book_id;
       if (!uniqueBookId.has(bookId)) uniqueBookId.add(bookId);
@@ -311,6 +345,11 @@ export default function County(props) {
     return uniqueBookId.size;
   }
 
+  /**
+   * Calculates jail population count for Pretrial Detainees
+   * @param {Object[]} data - Entire jail data set
+   * @returns {Number} Population count
+   */
   function getPretrialPopulation(data) {
     let uniqueBookId = new Set();
     data.forEach((entry) => {
@@ -322,11 +361,19 @@ export default function County(props) {
     return uniqueBookId.size;
   }
 
+  /**
+   * This should be implemented when data for current detainees is made available.
+   * @param {Object} event
+   */
   function handleCurrentButton(event) {
     event.preventDefault();
     setData([]);
   }
 
+  /**
+   * Makes a GET request to retrieve data
+   * @param {Object} event
+   */
   function handleOverallButton(event) {
     event.preventDefault();
     let countyId = props.location.state.county.county_id;
@@ -360,28 +407,28 @@ export default function County(props) {
       <Grid id="Grid" container spacing={2} direction="row">
         <Grid item xs={3}>
           <Paper className={classes.paper}>
-          <RadioGroup
-            aria-label="current or overall data"
-            name="current or overall data"
-            defaultValue="Overall"
-          >
-            <FormControlLabel
-              value="Current"
-              control={<Radio required={true} />}
-              label="Current"
-              onChange={handleCurrentButton}
-            />
-            <FormControlLabel
-              value="Overall"
-              control={<Radio required={true} />}
-              label="Overall"
-              onChange={handleOverallButton}
-            />
-          </RadioGroup>
+            <RadioGroup
+              aria-label="current or overall data"
+              name="current or overall data"
+              defaultValue="Overall"
+            >
+              <FormControlLabel
+                value="Current"
+                control={<Radio required={true} />}
+                label="Current"
+                onChange={handleCurrentButton}
+              />
+              <FormControlLabel
+                value="Overall"
+                control={<Radio required={true} />}
+                label="Overall"
+                onChange={handleOverallButton}
+              />
+            </RadioGroup>
           </Paper>
         </Grid>
-          <Grid item xs={9}>
-            <Paper className={classes.paper}>
+        <Grid item xs={9}>
+          <Paper className={classes.paper}>
             <Typography style={{ textAlign: "right", alignSelf: "flex-end" }}>
               There are{" "}
               {isAllDetainees
@@ -395,7 +442,7 @@ export default function County(props) {
               {new Date(props.location.state.county.updatedat).toDateString()}
             </Typography>
           </Paper>
-          </Grid>
+        </Grid>
         <Grid
           container
           item

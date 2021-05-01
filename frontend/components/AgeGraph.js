@@ -1,19 +1,15 @@
 import React from "react";
 import Bar from "./Bar";
-import colorscheme from "../GlobalVar.js";
+import { calculateAge, colorscheme } from "../GlobalVar.js";
 
 function AgeGraph(props) {
   const data = props.data;
 
-  function calculateAge(dobString) {
-    let idx = dobString.indexOf("T");
-    let date = new Date(dobString.substring(0, idx));
-    let ageDif = Date.now() - date.getTime();
-    let ageDate = new Date(ageDif);
-
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
-  }
-
+  /**
+   * Put data in an appropriate format for the Chart.js graph
+   * @param {Object[]} data - Jail entry data
+   * @returns {Object} Data for chart
+   */
   function formatData(data) {
     let dict = {
       range1: 0,

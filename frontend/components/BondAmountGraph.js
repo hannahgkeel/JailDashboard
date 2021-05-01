@@ -5,6 +5,11 @@ import colorscheme from "../GlobalVar.js";
 function BondAmountGraph(props) {
   const data = props.data;
 
+  /**
+   * Put data in an appropriate format for the Chart.js graph
+   * @param {Object[]} data - Jail entry data
+   * @returns {Object} Data for chart
+   */
   function formatData(data) {
     let dict = {
       no_bond: 0,

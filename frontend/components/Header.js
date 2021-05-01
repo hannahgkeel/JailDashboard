@@ -31,12 +31,6 @@ export default function Header() {
           <Typography className={classes.title} variant="subtitle2">
             Criminal Justice Innovation Lab
           </Typography>
-          {/* <Typography variant="subtitle1">
-                        Key metrics on local jail populations
-                    </Typography> */}
-          {/* <Typography align="left">
-                        Criminal Justice Innovation Lab
-                    </Typography> */}
           <Typography>
             <Button href="/" color="inherit">
               Home
