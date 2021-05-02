@@ -30,3 +30,6 @@ yarn fmt
 *  Our frontend is built with React. You will notice that we used Chart.js to build our pie and bar charts. We also used Material UI for the styling of our website. Almost every page/component has some component from Material UI.
 *  Our Server and Database were built with Heroku and Heroku Postgres
 *  The backend was build with NodeJs and ExpressJS
+
+### Design Document
+https://docs.google.com/document/d/1yVVHNs8Vy9oRGskISBvvpD5dEx4sNvDue1jkz3Psxkg/edit?usp=sharing
