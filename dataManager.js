@@ -3,19 +3,20 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const prompt = require("prompt-sync")({ sigint: true });
 const fs = require("fs");
-//const ExcelJS = require("exceljs");
 const postgres = require("postgres");
 //const { getJsDateFromExcel } = require("excel-date-to-js");
 const XLSX = require("xlsx");
 
-const sql = postgres();
-/*
-const sql = postgres("postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn", {
-  ssl: {
-    rejectUnauthorized: false
+//const sql = postgres();
+
+const sql = postgres(
+  "postgres://ngfyxxvxxvhybi:f176cdb723210f7cad0d3e4c947b55ac7fff3fcc6119a182dbef680fc5f3fb72@ec2-50-16-108-41.compute-1.amazonaws.com:5432/d837qqohdbshgn",
+  {
+    ssl: {
+      rejectUnauthorized: false,
+    },
   }
-});
-*/
+);
 
 const arguments = yargs(hideBin(process.argv)).argv;
 const MAP_FILE = "excelColumnValues.json";
@@ -155,31 +156,37 @@ async function uploadFile(filename) {
   }
   for (let i = 0; i < json_data.length; i++) {
     const entry = json_data[i];
+    const entry_charge = entry.charge ? entry.charge.trim() : entry.charge;
+    const entry_fel_misd = entry.fel_misd
+      ? entry.fel_misd.trim()
+      : entry.fel_misd;
+    const entry_race = entry.race ? entry.race.trim() : entry.race;
+    const entry_sex = entry.sex ? entry.sex.trim() : entry.sex;
+    const entry_bond_type = entry.bond_type
+      ? entry.bond_type.trim()
+      : entry.bond_type;
+    const entry_status = entry.status ? entry.status.trim() : entry.status;
     const countyData = checkEntry(
       county_id,
-      entry.charge.trim(),
-      entry.fel_misd.trim(),
-      entry.race.trim(),
-      entry.sex.trim(),
-      entry.bond_type.trim(),
-      entry.status.trim()
+      entry_charge,
+      entry_fel_misd,
+      entry_race,
+      entry_sex,
+      entry_bond_type,
+      entry_status
     );
-    const charge = countyData.get(`${county_id}charge` + entry.charge.trim());
-    const fel_misd = countyData.get(
-      `${county_id}fel_misd` + entry.fel_misd.trim()
-    );
-    const race = countyData.get(`${county_id}race` + entry.race.trim());
-    const sex = countyData.get(`${county_id}sex` + entry.sex.trim());
+    const charge = countyData.get(`${county_id}charge` + entry_charge);
+    const fel_misd = countyData.get(`${county_id}fel_misd` + entry_fel_misd);
+    const race = countyData.get(`${county_id}race` + entry_race);
+    const sex = countyData.get(`${county_id}sex` + entry_sex);
     const dob = entry.dob; // getJsDateFromExcel(entry.dob).toISOString();
     const name_id = entry.name_id;
     const book_id = entry.book_id;
     const book_date = entry.book_date; // getJsDateFromExcel(entry.bookdate).toISOString();
     const release_date = entry.release_date; // getJsDateFromExcel(entry.releastime).toISOString();
     const docket_id = entry.docket_id;
-    const bond_type = countyData.get(
-      `${county_id}bond_type` + entry.bond_type.trim()
-    );
-    const status = countyData.get(`${county_id}status` + entry.status.trim());
+    const bond_type = countyData.get(`${county_id}bond_type` + entry_bond_type);
+    const status = countyData.get(`${county_id}status` + entry_status);
     const bond_amount = entry.bond_amount;
     await sql`INSERT INTO county (county_id, race, sex, dob, name_id, book_id, book_date, docket_id, status, release_date, bond_type, bond_amount, charge, felony_misdemeanor, createdat, updatedat, filename) VALUES (${county_id}, ${race}, ${sex}, ${dob}, ${name_id}, ${book_id}, ${book_date}, ${docket_id}, ${status}, ${release_date}, ${bond_type}, ${bond_amount}, ${charge}, ${fel_misd}, ${upload_date}, ${updated_date}, ${filename});`;
   }
