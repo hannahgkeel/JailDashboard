@@ -15,6 +15,7 @@ import {
 export default function Search() {
   let history = useHistory();
 
+  // GET the list of counties in the database
   useEffect(() => {
     axios
       .get("/county_names")
@@ -28,7 +29,7 @@ export default function Search() {
 
   const [counties, setCounties] = useState([]);
 
-  // Initialize state
+  // Create state to be passed when page is redirected
   const [state, setState] = useState({
     county: {},
     all: false,
@@ -49,11 +50,11 @@ export default function Search() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Go to county page and make the state data available
     history.push({
       pathname: "/county",
       state: state,
     });
-    console.log("Submit button pressed.");
   };
 
   return (
@@ -105,5 +106,3 @@ export default function Search() {
     </div>
   );
 }
-
-// const counties = [{ name: "Orange County" }, { name: "Forsyth County" }];

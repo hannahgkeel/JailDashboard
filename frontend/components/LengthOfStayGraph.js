@@ -1,18 +1,15 @@
 import React from "react";
 import Bar from "./Bar";
-import colorscheme from "../GlobalVar.js";
+import { calcLenOfStay, colorscheme } from "../GlobalVar.js";
 
 function LengthOfStayGraph(props) {
   const data = props.data;
 
-  function calcLenOfStay(book_date, release_date) {
-    let bd = new Date(book_date.substring(0, book_date.indexOf("T")));
-    let rd = new Date(release_date.substring(0, release_date.indexOf("T")));
-    let milliseconds = rd.getTime() - bd.getTime();
-
-    return Math.ceil(milliseconds / (1000 * 60 * 60 * 24));
-  }
-
+  /**
+   * Put data in an appropriate format for the Chart.js graph
+   * @param {Object[]} data - Jail entry data
+   * @returns {Object} Data for chart
+   */
   function formatData(data) {
     let dict = {
       range1: 0,

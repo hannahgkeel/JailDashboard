@@ -11,6 +11,7 @@ function PretrialDetaineesGrid(props) {
   let rawData = props.data;
   let data = [];
 
+  // Only display data for pretrial detainees
   rawData.forEach((entry) => {
     if (entry.status === "Pretrial") data.push(entry);
   });
