@@ -21,6 +21,8 @@
     "cors": "^2.8.5",
     "css-loader": "^5.1.1",
     "dotenv": "^8.2.0",
+    "excel-date-to-js": "^1.0.6",
+    "exceljs": "^4.2.1",
     "express": "^4.17.1",
     "history": "^5.0.0",
     "html-webpack-plugin": "^5.2.0",
@@ -28,6 +30,7 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "postgres": "^1.0.2",
+    "prompt-sync": "^4.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -36,7 +39,8 @@
     "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
-    "xlsx": "^0.16.9"
+    "xlsx": "^0.16.9",
+    "yargs": "^16.2.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.13.0",

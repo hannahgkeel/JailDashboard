@@ -18,7 +18,7 @@ export default function Search() {
   // GET the list of counties in the database
   useEffect(() => {
     axios
-      .get("http://localhost:5000/county_names")
+      .get("/county_names")
       .then((res) => {
         setCounties(res.data);
       })
