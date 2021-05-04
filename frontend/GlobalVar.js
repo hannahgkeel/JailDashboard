@@ -1,5 +1,5 @@
 // Color scheme for charts
-const colorscheme = [
+export const colorscheme = [
   "#016c59",
   "#3690c0",
   "#a6bddb",
@@ -41,5 +41,3 @@ export function calcLenOfStay(book_date, release_date) {
 
   return Math.ceil(milliseconds / (1000 * 60 * 60 * 24));
 }
-
-export default colorscheme;

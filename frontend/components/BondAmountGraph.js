@@ -1,6 +1,6 @@
 import React from "react";
 import Bar from "./Bar";
-import colorscheme from "../GlobalVar.js";
+import {colorscheme} from "../GlobalVar.js";
 
 function BondAmountGraph(props) {
   const data = props.data;

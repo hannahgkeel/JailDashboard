@@ -1,6 +1,6 @@
 import React from "react";
 import Pie from "./Pie";
-import colorscheme from "../GlobalVar.js";
+import {colorscheme} from "../GlobalVar.js";
 
 function SexGraph(props) {
   const data = props.data;

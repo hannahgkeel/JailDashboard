@@ -1,6 +1,6 @@
 import React from "react";
 import Bar from "./Bar";
-import colorscheme from "../GlobalVar.js";
+import {colorscheme} from "../GlobalVar.js";
 
 function ChargeTypeGraph(props) {
   const data = props.data;
